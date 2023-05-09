@@ -1,0 +1,63 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\ericw\\OneDrive - Queensland University of Technology\\Year 2\\IFN664_Advanced Algorithms and Computational Complexity\\Assessment1\\DVDManagement\\DVDManagement\\DVDManagement.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\ericw\\OneDrive - Queensland University of Technology\\Year 2\\IFN664_Advanced Algorithms and Computational Complexity\\Assessment1\\DVDManagement\\DVDManagement\\DVDManagement.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\ericw\\OneDrive - Queensland University of Technology\\Year 2\\IFN664_Advanced Algorithms and Computational Complexity\\Assessment1\\DVDManagement\\DVDManagement\\DVDManagement.csproj",
+        "projectName": "DVDManagement",
+        "projectPath": "C:\\Users\\ericw\\OneDrive - Queensland University of Technology\\Year 2\\IFN664_Advanced Algorithms and Computational Complexity\\Assessment1\\DVDManagement\\DVDManagement\\DVDManagement.csproj",
+        "packagesPath": "C:\\Users\\ericw\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\ericw\\OneDrive - Queensland University of Technology\\Year 2\\IFN664_Advanced Algorithms and Computational Complexity\\Assessment1\\DVDManagement\\DVDManagement\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\ericw\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,15 @@
+C:\Users\ericw\OneDrive - Queensland University of Technology\Year 2\IFN664_Advanced Algorithms and Computational Complexity\Assessment1\DVDManagement\DVDManagement\bin\Debug\net6.0\DVDLibrary.exe
+C:\Users\ericw\OneDrive - Queensland University of Technology\Year 2\IFN664_Advanced Algorithms and Computational Complexity\Assessment1\DVDManagement\DVDManagement\bin\Debug\net6.0\DVDLibrary.deps.json
+C:\Users\ericw\OneDrive - Queensland University of Technology\Year 2\IFN664_Advanced Algorithms and Computational Complexity\Assessment1\DVDManagement\DVDManagement\bin\Debug\net6.0\DVDLibrary.runtimeconfig.json
+C:\Users\ericw\OneDrive - Queensland University of Technology\Year 2\IFN664_Advanced Algorithms and Computational Complexity\Assessment1\DVDManagement\DVDManagement\bin\Debug\net6.0\DVDLibrary.dll
+C:\Users\ericw\OneDrive - Queensland University of Technology\Year 2\IFN664_Advanced Algorithms and Computational Complexity\Assessment1\DVDManagement\DVDManagement\bin\Debug\net6.0\DVDLibrary.pdb
+C:\Users\ericw\OneDrive - Queensland University of Technology\Year 2\IFN664_Advanced Algorithms and Computational Complexity\Assessment1\DVDManagement\DVDManagement\obj\Debug\net6.0\DVDLibrary.csproj.AssemblyReference.cache
+C:\Users\ericw\OneDrive - Queensland University of Technology\Year 2\IFN664_Advanced Algorithms and Computational Complexity\Assessment1\DVDManagement\DVDManagement\obj\Debug\net6.0\DVDLibrary.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ericw\OneDrive - Queensland University of Technology\Year 2\IFN664_Advanced Algorithms and Computational Complexity\Assessment1\DVDManagement\DVDManagement\obj\Debug\net6.0\DVDLibrary.AssemblyInfoInputs.cache
+C:\Users\ericw\OneDrive - Queensland University of Technology\Year 2\IFN664_Advanced Algorithms and Computational Complexity\Assessment1\DVDManagement\DVDManagement\obj\Debug\net6.0\DVDLibrary.AssemblyInfo.cs
+C:\Users\ericw\OneDrive - Queensland University of Technology\Year 2\IFN664_Advanced Algorithms and Computational Complexity\Assessment1\DVDManagement\DVDManagement\obj\Debug\net6.0\DVDLibrary.csproj.CoreCompileInputs.cache
+C:\Users\ericw\OneDrive - Queensland University of Technology\Year 2\IFN664_Advanced Algorithms and Computational Complexity\Assessment1\DVDManagement\DVDManagement\obj\Debug\net6.0\DVDLibrary.dll
+C:\Users\ericw\OneDrive - Queensland University of Technology\Year 2\IFN664_Advanced Algorithms and Computational Complexity\Assessment1\DVDManagement\DVDManagement\obj\Debug\net6.0\refint\DVDLibrary.dll
+C:\Users\ericw\OneDrive - Queensland University of Technology\Year 2\IFN664_Advanced Algorithms and Computational Complexity\Assessment1\DVDManagement\DVDManagement\obj\Debug\net6.0\DVDLibrary.pdb
+C:\Users\ericw\OneDrive - Queensland University of Technology\Year 2\IFN664_Advanced Algorithms and Computational Complexity\Assessment1\DVDManagement\DVDManagement\obj\Debug\net6.0\DVDLibrary.genruntimeconfig.cache
+C:\Users\ericw\OneDrive - Queensland University of Technology\Year 2\IFN664_Advanced Algorithms and Computational Complexity\Assessment1\DVDManagement\DVDManagement\obj\Debug\net6.0\ref\DVDLibrary.dll
