@@ -11,13 +11,13 @@ namespace DVDLibrary
 
         static void Main(string[] args)
         {
+            Console.WriteLine("=========================================================");
+            Console.WriteLine("Welcome to COMMUNITY LIBRARY MOVIE DVD MANAGEMENT SYSTEM");
+            Console.WriteLine("=========================================================");
             MainMenu(); //initiate menu selection
         }
         static void MainMenu()
         {
-            Console.WriteLine("=========================================================");
-            Console.WriteLine("Welcome to COMMUNITY LIBRARY MOVIE DVD MANAGEMENT SYSTEM");
-            Console.WriteLine("=========================================================");
             Console.WriteLine("\nMain Menu");
             Console.WriteLine("-----------------");
 
@@ -83,15 +83,12 @@ namespace DVDLibrary
                         {
                             Console.WriteLine("Invalid input, please enter a valid integer between 0 and 7.");
                         }
-                        else
-                        {
-                            break;
-                        }
+                        break;
                     }
                     switch (staffChoice)
                     {
                         case 1:
-                            Console.WriteLine("Selected 1, add movies to the system");
+                            Console.WriteLine("Selected 1 - add movies to the system");
                             // Populate the movie library with auto-generate movies data
                             List<Movie> movies = PopulateData.PopulateMovies();
                             foreach (Movie movie in movies)
@@ -102,23 +99,28 @@ namespace DVDLibrary
                             break;
 
                         case 2:
-                            Console.WriteLine("Selected 2, add DVDs to existing movies");
+                            Console.WriteLine("Selected 2 - add DVDs to existing movies");
                             movieCollection.AddDVD();
                             break;
                         case 3:
-                            Console.WriteLine("Selected 3");
+                            Console.WriteLine("Selected 3 - remove DVDs from system");
+                            movieCollection.RemoveDVD("", 0);
                             break;
                         case 4:
-                            Console.WriteLine("Selected 4");
+                            Console.WriteLine("Selected 4 - register new members");
                             break;
+                            memberCollection.AddMember(); //manually input member details
                         case 5:
-                            Console.WriteLine("Selected 5");
+                            Console.WriteLine("Selected 5 - remove members");
+                            memberCollection.Remove("", "");
                             break;
                         case 6:
-                            Console.WriteLine("Selected 6");
+                            Console.WriteLine("Selected 6 - Find member's contact number");
+                            memberCollection.GetMemberNumber("", "");
                             break;
                         case 7:
-                            Console.WriteLine("Selected 7");
+                            Console.WriteLine("Selected 7 - display members renting a movie");
+                            memberCollection.GetListOfBorrowers();
                             break;
                         case 0:
                             Console.WriteLine("Exiting program...");
@@ -139,80 +141,80 @@ namespace DVDLibrary
         }
         static void MemberMenu()
         {
-            
+
             Console.WriteLine("enter member first name");
             string? inputFirstName = Console.ReadLine();
             Console.WriteLine("enter member last name");
             string? inputLastName = Console.ReadLine();
             Console.WriteLine("enter 4 digits pin");
             string? inputpin = Console.ReadLine();
-            if(memberCollection.CheckMemberAuth(inputFirstName!,inputLastName!,inputpin!))
+            if (memberCollection.CheckMemberAuth(inputFirstName!, inputLastName!, inputpin!))
             {
-            
-            Console.WriteLine("\nWelcome to Member Menu");
-            Console.WriteLine("-------------------------");
 
-            int memberChoice;
+                Console.WriteLine("\nWelcome to Member Menu");
+                Console.WriteLine("-------------------------");
 
-            do
-            {
-                Console.WriteLine("1. Browse all the movies");
-                Console.WriteLine("2. Display the information about a movie, given the title of the movie");
-                Console.WriteLine("3. Borrow a movie DVD");
-                Console.WriteLine("4. Return a movie DVD");
-                Console.WriteLine("5. List current borrowing movies");
-                Console.WriteLine("6. Display the top 3 movies rented by the member");
-                Console.WriteLine("0. Return to main menu");
-                Console.Write("\nEnter your choice ==> ");
+                int memberChoice;
 
-                while (!int.TryParse(Console.ReadLine(), out memberChoice) || (memberChoice != 0 && memberChoice != 1 && memberChoice != 2 && memberChoice != 3 && memberChoice != 4 && memberChoice != 5 && memberChoice != 6))
+                do
                 {
-                    Console.WriteLine("Invalid input, please enter a valid integer.");
-                    Console.Write("Enter your choice ==> ");
-                }
-                switch (memberChoice)
-                {
-                    case 1:
-                        Console.WriteLine("Selected 1, Browse all the movies");
-                        break;
-                    case 2:
-                        Console.WriteLine("Selected 2, look up a specific movie's information");
-                        break;
-                    case 3:
-                        Console.WriteLine("Selected 3, Borrow a movie DVD");
-                        //call: 
-                        //memberCollection.CheckMemberAuth("","","");
-                        //if(MovieCollection.BorrowMovie())
-                        //{
-                        //    MemberCollection.MemberBorrowDVD();
-                        //}
-                        break;
-                    case 4:
-                        Console.WriteLine("Selected 4, return a movie DVD");
-                        //call: 
-                        //memberCollection.CheckMemberAuth("","","");
-                        //if(MovieCollection.ReturnMovie())
-                        //{
-                        //    MemberCollection.MemberReturnDVD();
-                        //}
-                        break;
-                    case 5:
-                        Console.WriteLine("Selected 5, list of current borrowing movie DVD");
-                        break;
-                    case 6:
-                        Console.WriteLine("Selected 6, Top 3 most borrowed movies");
-                        break;
-                    case 0:
-                        Console.WriteLine("Exiting program...");
-                        MainMenu();
-                        break;
-                    default:
-                        Console.WriteLine("Invalid input, please try again.");
-                        break;
-                }
-            } while (memberChoice != 0);
+                    Console.WriteLine("1. Browse all the movies");
+                    Console.WriteLine("2. Display the information about a movie, given the title of the movie");
+                    Console.WriteLine("3. Borrow a movie DVD");
+                    Console.WriteLine("4. Return a movie DVD");
+                    Console.WriteLine("5. List current borrowing movies");
+                    Console.WriteLine("6. Display the top 3 movies rented by the member");
+                    Console.WriteLine("0. Return to main menu");
+                    Console.Write("\nEnter your choice ==> ");
 
-            Console.ReadKey();
+                    while (!int.TryParse(Console.ReadLine(), out memberChoice) || (memberChoice != 0 && memberChoice != 1 && memberChoice != 2 && memberChoice != 3 && memberChoice != 4 && memberChoice != 5 && memberChoice != 6))
+                    {
+                        Console.WriteLine("Invalid input, please enter a valid integer.");
+                        Console.Write("Enter your choice ==> ");
+                    }
+                    switch (memberChoice)
+                    {
+                        case 1:
+                            Console.WriteLine("Selected 1 - Browse all the movies");
+                            break;
+                        case 2:
+                            Console.WriteLine("Selected 2 - look up a specific movie's information");
+                            break;
+                        case 3:
+                            Console.WriteLine("Selected 3 - Borrow a movie DVD");
+                            //call: 
+                            //memberCollection.CheckMemberAuth("","","");
+                            //if(MovieCollection.BorrowMovie())
+                            //{
+                            //    MemberCollection.MemberBorrowDVD();
+                            //}
+                            break;
+                        case 4:
+                            Console.WriteLine("Selected 4 - return a movie DVD");
+                            //call: 
+                            //memberCollection.CheckMemberAuth("","","");
+                            //if(MovieCollection.ReturnMovie())
+                            //{
+                            //    MemberCollection.MemberReturnDVD();
+                            //}
+                            break;
+                        case 5:
+                            Console.WriteLine("Selected 5 - list of current borrowing movie DVD");
+                            break;
+                        case 6:
+                            Console.WriteLine("Selected 6 - Top 3 most borrowed movies");
+                            break;
+                        case 0:
+                            Console.WriteLine("Exiting program...");
+                            MainMenu();
+                            break;
+                        default:
+                            Console.WriteLine("Invalid input, please try again.");
+                            break;
+                    }
+                } while (memberChoice != 0);
+
+                Console.ReadKey();
             }
             else
             {
