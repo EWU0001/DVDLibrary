@@ -54,10 +54,11 @@ namespace DVDLibrary
             }
             _hashTable[hash] = movie;
             _probes[hash] = i + 1;
+            Console.WriteLine($"Movie: {movie.Title} added to the system");
             return true;
         }
 
-        public void AddDVD(string movieTitle,int inputNumberOfDVDs ) //add dvd to current movie object
+        public void AddDVD(string movieTitle, int inputNumberOfDVDs) //add dvd to current movie object
         {
             // Prompt the user to enter a movie title and read the input
             //Console.WriteLine("Enter movie title >> ");
@@ -103,6 +104,7 @@ namespace DVDLibrary
                             _hashTable[(hash + i * i) % Size] = null!;
                             _probes[(hash + i * i) % Size] = 0;
                         }
+                        Console.WriteLine($"{numberOfRemove} DVDs removed from {title} sucessfully");
                         return true;
                     }
                     i++;

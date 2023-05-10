@@ -2,7 +2,7 @@
 
 namespace DVDLibrary
 {
-    public class Member: IComparable
+    public class Member : IComparable
     {
         private string[] currentBorrowing; //array to store current DVDs for add & remove
         private string? firstName;
@@ -26,15 +26,15 @@ namespace DVDLibrary
             MaxBorrows = 5;
             currentBorrowing = new string[MaxBorrows];
         }
-        public Member(string? firstName,string? lastName) 
-        {
-            this.firstName = firstName;
-            this.lastName = lastName;
-            this.phoneNumber = "";
-            this.pin = "";
-            MaxBorrows = 5;
-            currentBorrowing = new string[MaxBorrows];
-        }
+        // public Member(string? firstName, string? lastName)
+        // {
+        //     this.firstName = firstName;
+        //     this.lastName = lastName;
+        //     this.phoneNumber = null;
+        //     this.pin = null;
+        //     MaxBorrows = 5;
+        //     currentBorrowing = new string[MaxBorrows];
+        // }
         public Member() { }
 
         public override string ToString()
@@ -58,7 +58,7 @@ namespace DVDLibrary
             {
                 if (currentBorrowing.Length >= MaxBorrows)
                 {
-                    throw new InvalidOperationException("Member cannot borrow more than 5 DVDs");                    
+                    throw new InvalidOperationException("Member cannot borrow more than 5 DVDs");
                 }
                 int index = 0;
                 for (; index < currentBorrowing.Length; index++) //loop through currentBorrowing array
@@ -108,8 +108,8 @@ namespace DVDLibrary
         }
 
         public void AddBorrowHistory(string? movieTitle) //store new borrw to array of borrowing history
-        {            
-            for(int index = 0; index< MovieBorrowHistory!.Length && MovieBorrowHistory[index] != null; index++)
+        {
+            for (int index = 0; index < MovieBorrowHistory!.Length && MovieBorrowHistory[index] != null; index++)
             {
                 if (MovieBorrowHistory[index].DVDName == movieTitle)
                 {
@@ -120,11 +120,11 @@ namespace DVDLibrary
         }
         public void SortBorrowedHistory(string firstName, string lastName)
         {
-            Member memberToFind = new(firstName, lastName);
+            Member memberToFind = new(firstName, lastName, null, null);
             //Find member using BST search function given first and last name
             MemberCollection memberCollection = new();
             Member? member = memberCollection.Search(memberToFind);
-            if(member == null)
+            if (member == null)
             {
                 Console.WriteLine($"Member {firstName}{lastName} not found.");
                 return;
@@ -140,6 +140,5 @@ namespace DVDLibrary
                 Console.WriteLine($"{i + 1}.{sortedArray[i].DVDName} ({sortedArray[i].Count} times)");
             }
         }
-
     }
 }

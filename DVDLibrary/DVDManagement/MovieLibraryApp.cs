@@ -72,7 +72,7 @@ namespace DVDLibrary
                     Console.WriteLine("3. Remove DVDs of a movie from the system");
                     Console.WriteLine("4. Register a new member with the system");
                     Console.WriteLine("5. Remove a registered member from the system");
-                    Console.WriteLine("6. Find a member’s contact phone number, given the member’s full name");
+                    Console.WriteLine("6. Find a member's contact phone number, given the member's full name");
                     Console.WriteLine("7. Find all the members who are currently renting a particular movie");
                     Console.WriteLine("0. Return to main menu");
 
@@ -90,12 +90,12 @@ namespace DVDLibrary
                         case 1:
                             Console.WriteLine("Selected 1 - add movies to the system");
                             // Populate the movie library with auto-generate movies data
-                            List<Movie> movies = PopulateData.PopulateMovies();
+                            List<Movie> movies = PopulateData.GenerateMovies();
                             foreach (Movie movie in movies)
                             {
                                 movieCollection.AddMovie(movie);
+                                // Console.WriteLine($"Added {movies.Count} movies to the system.");
                             }
-                            Console.WriteLine($"Added {movies.Count} movies to the system.");
                             break;
 
                         case 2:
@@ -116,7 +116,7 @@ namespace DVDLibrary
                             string? inputPhoneNumber = Console.ReadLine();
                             Console.WriteLine("input 4 digits pin");
                             string? inputPin = Console.ReadLine();
-                            Member memberToAdd = new(inputFirstName, inputLastName, inputPhoneNumber, inputPin);
+                            Member memberToAdd = new("aaa", "bbb", "0000000", "000");
                             memberCollection.AddMember(memberToAdd);
                             break;
                         case 5:
@@ -126,7 +126,7 @@ namespace DVDLibrary
                             Console.WriteLine("input last name");
                             string? inputLastNameToRemove = Console.ReadLine();
 
-                            Member memberToRemove = new(inputFirstNameToRemove, inputLastNameToRemove);
+                            Member memberToRemove = new(inputFirstNameToRemove, inputLastNameToRemove, null, null);
                             memberCollection.Remove(memberToRemove); //all member details
                             break;
                         case 6:
@@ -135,7 +135,7 @@ namespace DVDLibrary
                             string? inputFirstNameToFind = Console.ReadLine();
                             Console.WriteLine("input last name");
                             string? inputLastNameToFind = Console.ReadLine();
-                            Member memberToFind = new(inputFirstNameToFind, inputLastNameToFind);
+                            Member memberToFind = new(inputFirstNameToFind, inputLastNameToFind, null, null);
                             memberCollection.GetMemberNumber(memberToFind);
                             break;
                         case 7:
@@ -143,7 +143,7 @@ namespace DVDLibrary
                             memberCollection.GetListOfBorrowers("Python"); //get members renting an example movie
                             break;
                         case 0:
-                            Console.WriteLine("Exiting program..."); 
+                            Console.WriteLine("Returning to Main Menu....");
                             MainMenu(); //return to main menu
                             break;
                         default:
@@ -152,11 +152,6 @@ namespace DVDLibrary
                     }
                 } while (staffChoice != 0);
                 Console.ReadKey();
-            }
-            else
-            {
-                Console.WriteLine("Returning to main menu....");
-                MainMenu();
             }
         }
         static void MemberMenu()
@@ -257,9 +252,9 @@ namespace DVDLibrary
             string defaultUserName = "staff";
             string defaultPassword = "today123";
             Console.Write("Enter staff username >> ");
-            string? inputUserName = Console.ReadLine();
+            string? inputUserName = defaultUserName; //make it auto login for tesing purpose
             Console.Write("Enter password >> ");
-            string? inputPassword = Console.ReadLine();
+            string? inputPassword = defaultPassword;
             while (true)
             {
                 if (inputUserName == defaultUserName && inputPassword == defaultPassword)

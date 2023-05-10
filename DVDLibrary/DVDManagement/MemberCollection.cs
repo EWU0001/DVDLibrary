@@ -21,6 +21,7 @@ namespace DVDLibrary
             {
                 return Search(member, root);
             }
+            Console.WriteLine("\nMember not found, register new member");
             return null;
         }
         private Member? Search(Member member, Node root)
@@ -30,7 +31,7 @@ namespace DVDLibrary
                 if (member.CompareTo(root.Obj) == 0)
                 {
                     Console.WriteLine("\n Found Member");
-                    return member;
+                    return (Member)root.Obj;
                 }
                 else if (member.CompareTo(root.Obj) < 0 && root.Left is not null)
                 {
@@ -42,32 +43,47 @@ namespace DVDLibrary
                     Console.WriteLine("\n continue searching....");
                     return Search(member, root.Right);
                 }
-                Console.WriteLine("\nMember Not found, please register new member!");
             }
+            Console.WriteLine("\nMember Not found, register new member!");
             return null;
         }
         public void AddMember(Member member) //add member allows accessed in other classes
         {
             if (root == null)
+            {
                 root = new Node(member);
+                Console.WriteLine($"Member {member.FirstName} added successfully at node");
+            }
             else
+            {
                 Insert(member, root);
+            }
         }
         private void Insert(Member member, Node pointer)
         {
             if (member.CompareTo(pointer.Obj) < 0)
             {
                 if (pointer.Left == null)
+                {
                     pointer.Left = new Node(member);
+                    Console.WriteLine($"Member {member.FirstName} added successfully at left child");
+                }
                 else
+                {
                     Insert(member, pointer.Left);
+                }
             }
             else
             {
                 if (pointer.Right == null)
+                {
                     pointer.Right = new Node(member);
+                    Console.WriteLine($"Member {member.FirstName} added successfully at right child");
+                }
                 else
+                {
                     Insert(member, pointer.Right);
+                }
             }
         }
         public void Remove(Member member) //delete a registered member from system
@@ -88,6 +104,7 @@ namespace DVDLibrary
                 {
                     if (ptr.Left.Right == null)// special case when right subtree of pointer left is empty
                     {
+                        Console.WriteLine($"Member {member.FirstName} successfully removed from the system.");
                         ptr.Obj = ptr.Left.Obj;
                         ptr.Left = ptr.Left.Left;
                     }
@@ -100,6 +117,7 @@ namespace DVDLibrary
                             pp = p;
                             p = p.Right;
                         }
+                        Console.WriteLine($"Member {member.FirstName} successfully removed from the system.");
                         ptr.Obj = p.Obj;
                         pp.Right = p.Left;
                     }
@@ -120,20 +138,21 @@ namespace DVDLibrary
                         else if (parent.Right is not null)
                             parent.Right = c;
                     }
+                    Console.WriteLine($"Member {member.FirstName} successfully removed from the system.");
                 }
             }
         }
         public string? GetMemberNumber(Member member) //get phone number of a member
         {
             Member? foundMember = Search(member);
-            if(foundMember!=null)
+            if (foundMember != null)
             {
                 Console.WriteLine($"Phone number for {foundMember.FirstName} is: {foundMember.PhoneNumber}");
                 return foundMember.PhoneNumber;
             }
             else
             {
-                Console.WriteLine($"Member{member.FirstName} not found");
+                Console.WriteLine($"{member} not found ");
                 return null;
             }
         }
@@ -158,9 +177,9 @@ namespace DVDLibrary
                 {
                     Console.WriteLine($"{member.FirstName}");
                 }
-
                 TraverseInOrderAndPrintBorrowedMovies(root.Right!, movieTitle);
             }
+            return;
         }
         public void MemberBorrowDVD(string? firstName, string? lastName, string movieTitle)//specific member borrow a movieDVD
         {
@@ -217,18 +236,26 @@ namespace DVDLibrary
             }
         }
 
-        public bool CheckMemberAuth(string firstName, string lastName, string pin)
+        public bool CheckMemberAuth(string? firstName, string? lastName, string? pin)
         {
-            Member memberToSearch = new(firstName, lastName, "", pin);
+            if (string.IsNullOrEmpty(firstName) || string.IsNullOrEmpty(lastName) || string.IsNullOrEmpty(pin))
+            {
+                Console.WriteLine("Please provide all member details");
+                return false;
+            }
+
+            Member memberToSearch = new(firstName, lastName, null, pin);
             Member? foundMember = Search(memberToSearch);
             if (foundMember != null)
-                {
+            {
                 Console.WriteLine("Member details are matched");
-                    return true;
-                }            
+                return true;
+            }
+
             Console.WriteLine("Check member details again");
             return false;
         }
+
         public void TraverseInOrder()
         {
             InOrder(root!);
