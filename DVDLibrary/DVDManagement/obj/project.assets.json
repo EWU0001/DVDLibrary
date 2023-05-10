@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ericw\\OneDrive - Queensland University of Technology\\Year 2\\IFN664_Advanced Algorithms and Computational Complexity\\Assessment1\\DVDManagement\\DVDManagement\\DVDLibrary.csproj",
+      "projectUniqueName": "C:\\Users\\ericw\\Documents\\GitHub\\Algorithm\\DVDLibrary\\DVDManagement\\DVDLibrary.csproj",
       "projectName": "DVDLibrary",
-      "projectPath": "C:\\Users\\ericw\\OneDrive - Queensland University of Technology\\Year 2\\IFN664_Advanced Algorithms and Computational Complexity\\Assessment1\\DVDManagement\\DVDManagement\\DVDLibrary.csproj",
+      "projectPath": "C:\\Users\\ericw\\Documents\\GitHub\\Algorithm\\DVDLibrary\\DVDManagement\\DVDLibrary.csproj",
       "packagesPath": "C:\\Users\\ericw\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ericw\\OneDrive - Queensland University of Technology\\Year 2\\IFN664_Advanced Algorithms and Computational Complexity\\Assessment1\\DVDManagement\\DVDManagement\\obj\\",
+      "outputPath": "C:\\Users\\ericw\\Documents\\GitHub\\Algorithm\\DVDLibrary\\DVDManagement\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\ericw\\AppData\\Roaming\\NuGet\\NuGet.Config",

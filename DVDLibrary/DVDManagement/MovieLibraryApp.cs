@@ -67,8 +67,8 @@ namespace DVDLibrary
                 int staffChoice;
                 do
                 {
-                    Console.WriteLine("1. Add DVDs of a new movie to the system");
-                    Console.WriteLine("2. Add DVDs of an existing movie to the system");
+                    Console.WriteLine("1. Insert DVDs of a new movie to the system");
+                    Console.WriteLine("2. Insert DVDs of an existing movie to the system");
                     Console.WriteLine("3. Remove DVDs of a movie from the system");
                     Console.WriteLine("4. Register a new member with the system");
                     Console.WriteLine("5. Remove a registered member from the system");
@@ -100,31 +100,51 @@ namespace DVDLibrary
 
                         case 2:
                             Console.WriteLine("Selected 2 - add DVDs to existing movies");
-                            movieCollection.AddDVD();
+                            movieCollection.AddDVD("Python", 1); //remove dvd from an example movie
                             break;
                         case 3:
                             Console.WriteLine("Selected 3 - remove DVDs from system");
-                            movieCollection.RemoveDVD("", 0);
+                            movieCollection.RemoveDVD("Python", 1); //remove 1 dvd from an example movie
                             break;
                         case 4:
                             Console.WriteLine("Selected 4 - register new members");
+                            Console.WriteLine("input first name");
+                            string? inputFirstName = Console.ReadLine();
+                            Console.WriteLine("input last name");
+                            string? inputLastName = Console.ReadLine();
+                            Console.WriteLine("input phone number");
+                            string? inputPhoneNumber = Console.ReadLine();
+                            Console.WriteLine("input 4 digits pin");
+                            string? inputPin = Console.ReadLine();
+                            Member memberToAdd = new(inputFirstName, inputLastName, inputPhoneNumber, inputPin);
+                            memberCollection.AddMember(memberToAdd);
                             break;
-                            memberCollection.AddMember(); //manually input member details
                         case 5:
                             Console.WriteLine("Selected 5 - remove members");
-                            memberCollection.Remove("", "");
+                            Console.WriteLine("input first name");
+                            string? inputFirstNameToRemove = Console.ReadLine();
+                            Console.WriteLine("input last name");
+                            string? inputLastNameToRemove = Console.ReadLine();
+
+                            Member memberToRemove = new(inputFirstNameToRemove, inputLastNameToRemove);
+                            memberCollection.Remove(memberToRemove); //all member details
                             break;
                         case 6:
                             Console.WriteLine("Selected 6 - Find member's contact number");
-                            memberCollection.GetMemberNumber("", "");
+                            Console.WriteLine("input first name");
+                            string? inputFirstNameToFind = Console.ReadLine();
+                            Console.WriteLine("input last name");
+                            string? inputLastNameToFind = Console.ReadLine();
+                            Member memberToFind = new(inputFirstNameToFind, inputLastNameToFind);
+                            memberCollection.GetMemberNumber(memberToFind);
                             break;
                         case 7:
                             Console.WriteLine("Selected 7 - display members renting a movie");
-                            memberCollection.GetListOfBorrowers();
+                            memberCollection.GetListOfBorrowers("Python"); //get members renting an example movie
                             break;
                         case 0:
-                            Console.WriteLine("Exiting program...");
-                            MainMenu();
+                            Console.WriteLine("Exiting program..."); 
+                            MainMenu(); //return to main menu
                             break;
                         default:
                             Console.WriteLine("Invalid input, please try again.");
@@ -141,7 +161,6 @@ namespace DVDLibrary
         }
         static void MemberMenu()
         {
-
             Console.WriteLine("enter member first name");
             string? inputFirstName = Console.ReadLine();
             Console.WriteLine("enter member last name");
@@ -150,14 +169,11 @@ namespace DVDLibrary
             string? inputpin = Console.ReadLine();
             if (memberCollection.CheckMemberAuth(inputFirstName!, inputLastName!, inputpin!))
             {
-
                 Console.WriteLine("\nWelcome to Member Menu");
                 Console.WriteLine("-------------------------");
-
                 int memberChoice;
-
                 do
-                {
+                {   //display Member menu options
                     Console.WriteLine("1. Browse all the movies");
                     Console.WriteLine("2. Display the information about a movie, given the title of the movie");
                     Console.WriteLine("3. Borrow a movie DVD");
@@ -175,34 +191,47 @@ namespace DVDLibrary
                     switch (memberChoice)
                     {
                         case 1:
-                            Console.WriteLine("Selected 1 - Browse all the movies");
+                            Console.WriteLine("Selected 1 - Browse all the movies"); //display all movies in the system in dictionary order
+                            movieCollection.DisplayMovies();
                             break;
                         case 2:
-                            Console.WriteLine("Selected 2 - look up a specific movie's information");
+                            Console.WriteLine("Selected 2 - look up a specific movie's information"); //display a movie details
+                            movieCollection.GetMovieDetails();
                             break;
                         case 3:
-                            Console.WriteLine("Selected 3 - Borrow a movie DVD");
-                            //call: 
-                            //memberCollection.CheckMemberAuth("","","");
-                            //if(MovieCollection.BorrowMovie())
-                            //{
-                            //    MemberCollection.MemberBorrowDVD();
-                            //}
+                            Console.WriteLine("Selected 3 - Borrow a movie DVD"); //check and borrow a movie DVD
+
+                            Console.Write("Enter movie title (press enter to auto-generate): ");
+                            string? movieTitle = Console.ReadLine();
+                            if (string.IsNullOrEmpty(movieTitle))
+                            {
+                                movieTitle = "Python"; // auto-generate an exmaple of a movie title 
+                            }
+                            if (movieCollection.BorrowMovie(movieTitle))
+                            {
+                                memberCollection.MemberBorrowDVD(inputFirstName, inputLastName, movieTitle); //take member's name from login input
+                            }
                             break;
                         case 4:
-                            Console.WriteLine("Selected 4 - return a movie DVD");
-                            //call: 
-                            //memberCollection.CheckMemberAuth("","","");
-                            //if(MovieCollection.ReturnMovie())
-                            //{
-                            //    MemberCollection.MemberReturnDVD();
-                            //}
+                            Console.WriteLine("Selected 4 - return a movie DVD"); //check movie then deduct from member's currentBorrowing array
+                            Console.Write("Enter movie title (press enter to auto-generate): ");
+                            string? returnMovieTitle = Console.ReadLine();
+                            if (string.IsNullOrEmpty(returnMovieTitle))
+                            {
+                                returnMovieTitle = "Python"; // auto-generate an exmaple of a movie title 
+                            }
+                            if (movieCollection.ReturnMovie(returnMovieTitle))
+                            {
+                                memberCollection.MemberReturnDVD(inputFirstName, inputLastName, returnMovieTitle); //take member's name from login input
+                            }
                             break;
                         case 5:
-                            Console.WriteLine("Selected 5 - list of current borrowing movie DVD");
+                            Console.WriteLine("Selected 5 - list of current borrowing movie DVD"); //list of current borrwing of a member 
+                            memberCollection.GetBorrowedDVDsForMember(inputFirstName!, inputLastName!);
                             break;
                         case 6:
                             Console.WriteLine("Selected 6 - Top 3 most borrowed movies");
+                            member.SortBorrowedHistory(inputFirstName!, inputLastName!);
                             break;
                         case 0:
                             Console.WriteLine("Exiting program...");

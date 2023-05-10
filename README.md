@@ -1,18 +1,23 @@
 # Algorithm and Data Structures in C#
- Hashtable and Sorting Alogrithms
+ C# library was not used in this project.
+
+ Featuring Hashtable, Binary Search Tree and Mergesort Alogrithms
 
 # DVD Library Management System
- Member management
+ Member management 
  Movie management
 
 # Use of Hashtable
- Hashtable has been used to manipulate Movie Collection
- 
+ Hashtable has been implemented to manipulate Movie Collection
+
+# Use of Binary Search Tree
+ BST has been implemented to manipulate Member Collection
+
 # Use of MergeSort
- MergeSort has been used in 
+ MergeSort has been implemented in
  - Sort Top 3 of most frequent borrow movies of a member
  - Sort and display all movies in the library in Dictionary order
 
 # Run
  Console App
-   In terminal, "dotnet run"
+   VS code terminal, cd to directory of DVDManagement, run "dotnet run"

@@ -57,19 +57,19 @@ namespace DVDLibrary
             return true;
         }
 
-        public void AddDVD() //add dvd to current movie object
+        public void AddDVD(string movieTitle,int inputNumberOfDVDs ) //add dvd to current movie object
         {
             // Prompt the user to enter a movie title and read the input
-            Console.WriteLine("Enter movie title >> ");
-            string? inputTitle = Console.ReadLine();
+            //Console.WriteLine("Enter movie title >> ");
+            //string? inputTitle = Console.ReadLine();
 
             // Search for the movie in the hashtable
-            Movie movie = SearchMovie(inputTitle!);
+            Movie movie = SearchMovie(movieTitle!);
 
             if (movie != null)
             {
                 // If the movie is found, prompt the user to enter the number of DVDs to be added
-                int inputNumberOfDVDs;
+                //int inputNumberOfDVDs;
                 do
                 {
                     Console.WriteLine("Number of DVD to be added >> ");
@@ -100,7 +100,7 @@ namespace DVDLibrary
                         _hashTable[(hash + i * i) % Size].NumberOfDVDs -= numberOfRemove;
                         if (_hashTable[(hash + i * i) % Size].NumberOfDVDs == 0)
                         {
-                            _hashTable[(hash + i * i) % Size] = null;
+                            _hashTable[(hash + i * i) % Size] = null!;
                             _probes[(hash + i * i) % Size] = 0;
                         }
                         return true;
@@ -124,13 +124,13 @@ namespace DVDLibrary
                 }
                 i++;
             }
-            return null;
+            return null!;
         }
         public void GetMovieDetails() //display details of a single movie given by movie title
         {
             Console.WriteLine("Input Movie title to see details");
             string? inputTitle = Console.ReadLine();
-            Movie movie = SearchMovie(inputTitle);
+            Movie movie = SearchMovie(inputTitle!);
             if (movie != null)
             {
                 Console.WriteLine($"{movie} ");

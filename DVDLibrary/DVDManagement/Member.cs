@@ -2,7 +2,7 @@
 
 namespace DVDLibrary
 {
-    public class Member
+    public class Member: IComparable
     {
         private string[] currentBorrowing; //array to store current DVDs for add & remove
         private string? firstName;
@@ -15,9 +15,9 @@ namespace DVDLibrary
         public string? Pin { get => pin; set => pin = value; }
         public string[]? CurrentBorrowing { get => currentBorrowing; set => currentBorrowing = value!; }
         private int MaxBorrows { get; set; }
-        public DVDBorrowCount[] MovieBorrowHistory { get; set; } //store borrow history, never remove
+        public DVDBorrowCount[]? MovieBorrowHistory { get; set; } //store borrow history, never remove
 
-        public Member(string firstName, string lastName, string phoneNumber, string pin)
+        public Member(string? firstName, string? lastName, string? phoneNumber, string? pin)
         {
             this.firstName = firstName;
             this.lastName = lastName;
@@ -26,12 +26,32 @@ namespace DVDLibrary
             MaxBorrows = 5;
             currentBorrowing = new string[MaxBorrows];
         }
-        public Member() { } //empty constructor
+        public Member(string? firstName,string? lastName) 
+        {
+            this.firstName = firstName;
+            this.lastName = lastName;
+            this.phoneNumber = "";
+            this.pin = "";
+            MaxBorrows = 5;
+            currentBorrowing = new string[MaxBorrows];
+        }
+        public Member() { }
 
         public override string ToString()
         {
             return FirstName?.ToString() + " " + LastName?.ToString() + " " + PhoneNumber?.ToString();
         }
+        public int CompareTo(object? obj)
+        {
+            if (obj is not Member other)
+            {
+                throw new ArgumentException("Object to compare must be a Member.", nameof(obj));
+            }
+            return this.lastName!.CompareTo(other.lastName) is not 0
+                ? this.lastName!.CompareTo(other.lastName)
+                : this.firstName!.CompareTo(other.firstName);
+        }
+
         public void AddToBorrow(string movieTitle) //add movie dvd to array of current borrowing 
         {
             try
@@ -87,27 +107,39 @@ namespace DVDLibrary
             }
         }
 
-        public void AddBorrowHistory(string movieTitle) //store new borrw to array of borrowing history
+        public void AddBorrowHistory(string? movieTitle) //store new borrw to array of borrowing history
         {            
-            for(int index = 0; index< MovieBorrowHistory.Length && MovieBorrowHistory[index] != null; index++)
+            for(int index = 0; index< MovieBorrowHistory!.Length && MovieBorrowHistory[index] != null; index++)
             {
                 if (MovieBorrowHistory[index].DVDName == movieTitle)
                 {
                     MovieBorrowHistory[index].Count++; //increment count
-                    SortBorrowedHistory(index); //call SortBorrowedHistory
                     //return;
                 }
             }
         }
-        public void SortBorrowedHistory(int index)//use mergesort and display top 3 borrowed history.
+        public void SortBorrowedHistory(string firstName, string lastName)
         {
-            DVDBorrowCount[] sortedArray = Mergesort<DVDBorrowCount>.Sort(MovieBorrowHistory); //call mergesort
-            Console.WriteLine("Top 3 frequent borrowed movies are: ");
-            for(int i=index; i>=Math.Max(0, index-2);i--)
+            Member memberToFind = new(firstName, lastName);
+            //Find member using BST search function given first and last name
+            MemberCollection memberCollection = new();
+            Member? member = memberCollection.Search(memberToFind);
+            if(member == null)
             {
-                Console.WriteLine($"{index - i + 1}.{sortedArray[i].DVDName}{sortedArray[i].Count} Times"); //print top 3 in descending order
+                Console.WriteLine($"Member {firstName}{lastName} not found.");
+                return;
             }
-                        
+            DVDBorrowCount[]? historyArray = member.MovieBorrowHistory;
+
+            // Sort the member's history array using mergesort
+            DVDBorrowCount[] sortedArray = Mergesort<DVDBorrowCount>.Sort(historyArray!);
+            // Display the top 3 frequent borrowed movies
+            Console.WriteLine($"Top 3 frequent borrowed movies for {firstName} {lastName}:");
+            for (int i = 0; i < Math.Min(sortedArray.Length, 3); i++)
+            {
+                Console.WriteLine($"{i + 1}.{sortedArray[i].DVDName} ({sortedArray[i].Count} times)");
+            }
         }
+
     }
 }
