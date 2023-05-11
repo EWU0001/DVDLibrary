@@ -16,7 +16,7 @@ namespace DVDLibrary
         public string Classification { get => classification; set => classification = value; }
         public int NumberOfDVDs { get => numberOfDVDs; set => numberOfDVDs = value; } //if zero delete the movie object 
 
-        public Movie() { } //empty constructor
+        // public Movie() { } //empty constructor
         public Movie(string title, int duration, string genre, string classification, int numberOfDVDs)
         {
             this.title = title;
@@ -65,7 +65,7 @@ namespace DVDLibrary
         //        Console.WriteLine(classification);
         //    }
         //}
-        public int CompareTo (Movie? other)
+        public int CompareTo(Movie? other)
         {
             return this.Title.CompareTo(other?.Title);
         }

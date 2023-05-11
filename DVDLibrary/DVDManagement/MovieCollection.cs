@@ -173,7 +173,7 @@ namespace DVDLibrary
                 if (movie.NumberOfDVDs > 0)
                 {
                     movie.NumberOfDVDs -= 1;//deduct Movie.numberOfDVDs
-                    Console.WriteLine($"You borrowed {movie.Title}");
+                    Console.WriteLine($"Movie exist and You borrowed {movie.Title}");
                     return true;
                 }
                 Console.WriteLine($"No DVD available for the movie {movie.Title}.");

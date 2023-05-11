@@ -14,8 +14,8 @@ namespace DVDLibrary
         public string? PhoneNumber { get => phoneNumber; set => phoneNumber = value; }
         public string? Pin { get => pin; set => pin = value; }
         public string[]? CurrentBorrowing { get => currentBorrowing; set => currentBorrowing = value!; }
-        private int MaxBorrows { get; set; }
-        public DVDBorrowCount[]? MovieBorrowHistory { get; set; } //store borrow history, never remove
+        public int MaxBorrows { get; set; }
+        public DVDBorrowCount[]? MovieBorrowHistory { get; set; } = new DVDBorrowCount[0]; //store borrow history, never remove
 
         public Member(string? firstName, string? lastName, string? phoneNumber, string? pin)
         {
@@ -35,8 +35,6 @@ namespace DVDLibrary
         //     MaxBorrows = 5;
         //     currentBorrowing = new string[MaxBorrows];
         // }
-        public Member() { }
-
         public override string ToString()
         {
             return FirstName?.ToString() + " " + LastName?.ToString() + " " + PhoneNumber?.ToString();
@@ -56,9 +54,14 @@ namespace DVDLibrary
         {
             try
             {
-                if (currentBorrowing.Length >= MaxBorrows)
+                if (currentBorrowing.Count(x => x != null) >= MaxBorrows)
                 {
                     throw new InvalidOperationException("Member cannot borrow more than 5 DVDs");
+                }
+                if (currentBorrowing.Contains(movieTitle))
+                {
+                    Console.WriteLine($"member has already borrowed {movieTitle}");
+                    return;
                 }
                 int index = 0;
                 for (; index < currentBorrowing.Length; index++) //loop through currentBorrowing array
@@ -107,7 +110,7 @@ namespace DVDLibrary
             }
         }
 
-        public void AddBorrowHistory(string? movieTitle) //store new borrw to array of borrowing history
+        public void AddBorrowHistory(string movieTitle) //store new borrw to array of borrowing history
         {
             for (int index = 0; index < MovieBorrowHistory!.Length && MovieBorrowHistory[index] != null; index++)
             {
@@ -116,28 +119,6 @@ namespace DVDLibrary
                     MovieBorrowHistory[index].Count++; //increment count
                     //return;
                 }
-            }
-        }
-        public void SortBorrowedHistory(string firstName, string lastName)
-        {
-            Member memberToFind = new(firstName, lastName, null, null);
-            //Find member using BST search function given first and last name
-            MemberCollection memberCollection = new();
-            Member? member = memberCollection.Search(memberToFind);
-            if (member == null)
-            {
-                Console.WriteLine($"Member {firstName}{lastName} not found.");
-                return;
-            }
-            DVDBorrowCount[]? historyArray = member.MovieBorrowHistory;
-
-            // Sort the member's history array using mergesort
-            DVDBorrowCount[] sortedArray = Mergesort<DVDBorrowCount>.Sort(historyArray!);
-            // Display the top 3 frequent borrowed movies
-            Console.WriteLine($"Top 3 frequent borrowed movies for {firstName} {lastName}:");
-            for (int i = 0; i < Math.Min(sortedArray.Length, 3); i++)
-            {
-                Console.WriteLine($"{i + 1}.{sortedArray[i].DVDName} ({sortedArray[i].Count} times)");
             }
         }
     }

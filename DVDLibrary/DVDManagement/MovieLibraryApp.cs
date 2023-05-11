@@ -4,8 +4,6 @@ namespace DVDLibrary
 {
     public class MovieLibraryApp
     {
-        static Member member = new();
-        static Movie movie = new();
         static MovieCollection movieCollection = new();
         static MemberCollection memberCollection = new();
 
@@ -116,7 +114,7 @@ namespace DVDLibrary
                             string? inputPhoneNumber = Console.ReadLine();
                             Console.WriteLine("input 4 digits pin");
                             string? inputPin = Console.ReadLine();
-                            Member memberToAdd = new("aaa", "bbb", "0000000", "000");
+                            Member memberToAdd = new("aaa", "bbb", "0000000", "0000");
                             memberCollection.AddMember(memberToAdd);
                             break;
                         case 5:
@@ -202,10 +200,7 @@ namespace DVDLibrary
                             {
                                 movieTitle = "Python"; // auto-generate an exmaple of a movie title 
                             }
-                            if (movieCollection.BorrowMovie(movieTitle))
-                            {
-                                memberCollection.MemberBorrowDVD(inputFirstName, inputLastName, movieTitle); //take member's name from login input
-                            }
+                            memberCollection.MemberBorrowDVD(inputFirstName, inputLastName, movieTitle, movieCollection); //take member's name from login input
                             break;
                         case 4:
                             Console.WriteLine("Selected 4 - return a movie DVD"); //check movie then deduct from member's currentBorrowing array
@@ -226,7 +221,7 @@ namespace DVDLibrary
                             break;
                         case 6:
                             Console.WriteLine("Selected 6 - Top 3 most borrowed movies");
-                            member.SortBorrowedHistory(inputFirstName!, inputLastName!);
+                            memberCollection.SortBorrowedHistory(inputFirstName!, inputLastName!);
                             break;
                         case 0:
                             Console.WriteLine("Exiting program...");

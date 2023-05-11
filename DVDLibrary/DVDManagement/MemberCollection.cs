@@ -56,21 +56,33 @@ namespace DVDLibrary
             }
             else
             {
-                Insert(member, root);
+                if (Insert(member, root))
+                {
+                    Console.WriteLine($"Member {member.FirstName} added successfully");
+                }
+                else
+                {
+                    Console.WriteLine($"Member {member.FirstName} already exists");
+                }
             }
         }
-        private void Insert(Member member, Node pointer)
+        private bool Insert(Member member, Node pointer)
         {
-            if (member.CompareTo(pointer.Obj) < 0)
+            if (member.CompareTo(pointer.Obj) == 0)
+            {
+                return false;
+            }
+            else if (member.CompareTo(pointer.Obj) < 0)
             {
                 if (pointer.Left == null)
                 {
                     pointer.Left = new Node(member);
                     Console.WriteLine($"Member {member.FirstName} added successfully at left child");
+                    return true;
                 }
                 else
                 {
-                    Insert(member, pointer.Left);
+                    return Insert(member, pointer.Left);
                 }
             }
             else
@@ -79,10 +91,11 @@ namespace DVDLibrary
                 {
                     pointer.Right = new Node(member);
                     Console.WriteLine($"Member {member.FirstName} added successfully at right child");
+                    return true;
                 }
                 else
                 {
-                    Insert(member, pointer.Right);
+                    return Insert(member, pointer.Right);
                 }
             }
         }
@@ -141,6 +154,10 @@ namespace DVDLibrary
                     Console.WriteLine($"Member {member.FirstName} successfully removed from the system.");
                 }
             }
+            else
+            {
+                Console.WriteLine($"Member {member.FirstName} does not exist in the system");
+            }
         }
         public string? GetMemberNumber(Member member) //get phone number of a member
         {
@@ -156,46 +173,72 @@ namespace DVDLibrary
                 return null;
             }
         }
-        public void GetListOfBorrowers(string movieTitle)
+        public void GetListOfBorrowers(string movieTitle) //list of members borrow a specific movie given by movie title.
         {
             Console.WriteLine($"List of members who borrowed '{movieTitle}':");
 
+            bool hasBorrowers = false;
             TraverseInOrder(); // iterate through all members in the collection
 
             Console.WriteLine("\n\n");
-
-            // iterate through all members in the collection again to print borrowed movies
-            TraverseInOrderAndPrintBorrowedMovies(root!, movieTitle);
+            // iterate through all members in the collection to print borrowed movies
+            hasBorrowers = PrintMembers(root!, movieTitle);
+            if (!hasBorrowers)
+            {
+                Console.WriteLine($"No one is borrowing the movie:'{movieTitle}'");
+            }
         }
-        private void TraverseInOrderAndPrintBorrowedMovies(Node root, string movieTitle)
+        private bool PrintMembers(Node root, string movieTitle)
         {
+            bool hasBorrowers = false;
             if (root != null)
             {
-                TraverseInOrderAndPrintBorrowedMovies(root.Left!, movieTitle);
+                hasBorrowers = PrintMembers(root.Left!, movieTitle);
                 Member member = (Member)root.Obj;
                 if (member.CurrentBorrowing!.Contains(movieTitle))
                 {
                     Console.WriteLine($"{member.FirstName}");
+                    hasBorrowers = true;
                 }
-                TraverseInOrderAndPrintBorrowedMovies(root.Right!, movieTitle);
+                PrintMembers(root.Right!, movieTitle);
             }
-            return;
+            return hasBorrowers;
         }
-        public void MemberBorrowDVD(string? firstName, string? lastName, string movieTitle)//specific member borrow a movieDVD
+        public void MemberBorrowDVD(string? firstName, string? lastName, string movieTitle, MovieCollection movieCollection)
         {
-            Member memberToBorrow = new(firstName, lastName, "", "");
-            Member? foundMember = Search(memberToBorrow);
-            if (foundMember != null)
+            if (string.IsNullOrEmpty(firstName) || string.IsNullOrEmpty(lastName))
             {
-                foundMember.AddToBorrow(movieTitle);
-                Console.WriteLine($"Member {firstName} borrowed {movieTitle} successfully!");
+                Console.WriteLine("Invalid input: first name or last name is missing");
+                return;
             }
-            else
+            // Search for the member in the BST
+            Member memberToBorrow = new(firstName, lastName, null, null);
+            Member? foundMember = Search(memberToBorrow);
+
+            if (foundMember == null)
             {
                 Console.WriteLine($"Member {firstName} {lastName} not found in the system.");
+                return;
+            }
+            //check if movie is available
+            if (!movieCollection.BorrowMovie(movieTitle))
+            {
+                Console.WriteLine($"No DVD available for the movie {movieTitle}.");
+                return;
+            }
+            // Add the movie to member's borrow list
+            try
+            {
+                foundMember.AddToBorrow(movieTitle);
+                Console.WriteLine($"Member {firstName} {lastName} borrowed {movieTitle} successfully!");
+            }
+            catch (InvalidOperationException ex)
+            {
+                Console.WriteLine(ex.Message);
+                //if add to borrow fails, return the movie to collection
+                movieCollection.ReturnMovie(movieTitle);
             }
         }
-
         public void MemberReturnDVD(string? firstName, string? lastName, string movieTitle)//return a movieDVD
         {
             Member memberToBorrow = new Member(firstName, lastName, "", "");
@@ -203,7 +246,7 @@ namespace DVDLibrary
             if (foundMember != null)
             {
                 foundMember.RemoveFromBorrow(movieTitle);
-                Console.WriteLine($"Member {firstName} borrowed {movieTitle} successfully!");
+                Console.WriteLine($"Member {firstName} returned {movieTitle} successfully!");
             }
             else
             {
@@ -246,7 +289,7 @@ namespace DVDLibrary
 
             Member memberToSearch = new(firstName, lastName, null, pin);
             Member? foundMember = Search(memberToSearch);
-            if (foundMember != null)
+            if (foundMember != null && foundMember.Pin == pin)
             {
                 Console.WriteLine("Member details are matched");
                 return true;
@@ -267,6 +310,28 @@ namespace DVDLibrary
                 InOrder(root.Left!);
                 Console.Write(root.Obj.ToString() + "");
                 InOrder(root.Right!);
+            }
+        }
+        public void SortBorrowedHistory(string firstName, string lastName)
+        {
+            Member memberToFind = new(firstName, lastName, null, null);
+            //Find member using BST search function given first and last name
+            MemberCollection memberCollection = new();
+            Member? member = memberCollection.Search(memberToFind);
+            if (member == null)
+            {
+                Console.WriteLine($"Member {firstName}{lastName} not found.");
+                return;
+            }
+            DVDBorrowCount[]? historyArray = member.MovieBorrowHistory;
+
+            // Sort the member's history array using mergesort
+            DVDBorrowCount[] sortedArray = Mergesort<DVDBorrowCount>.Sort(historyArray!);
+            // Display the top 3 frequent borrowed movies
+            Console.WriteLine($"Top 3 frequent borrowed movies for {firstName} {lastName}:");
+            for (int i = 0; i < Math.Min(sortedArray.Length, 3); i++)
+            {
+                Console.WriteLine($"{i + 1}.{sortedArray[i].DVDName} ({sortedArray[i].Count} times)");
             }
         }
     }

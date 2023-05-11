@@ -2,8 +2,8 @@
 
 namespace DVDLibrary
 {
-    public class DVDBorrowCount: IComparable<DVDBorrowCount>
-    {         
+    public class DVDBorrowCount : IComparable<DVDBorrowCount>
+    {
         public string? DVDName { get; set; }
         public int Count { get; set; }
 
@@ -11,6 +11,5 @@ namespace DVDLibrary
         {
             return other!.Count.CompareTo(Count);
         }
-       
     }
 }
