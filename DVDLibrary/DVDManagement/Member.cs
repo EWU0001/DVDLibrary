@@ -15,7 +15,7 @@ namespace DVDLibrary
         public string? Pin { get => pin; set => pin = value; }
         public string[]? CurrentBorrowing { get => currentBorrowing; set => currentBorrowing = value!; }
         public int MaxBorrows { get; set; }
-        public DVDBorrowCount[]? MovieBorrowHistory { get; set; } = new DVDBorrowCount[0]; //store borrow history, never remove
+        public DVDBorrowCount[]? MovieBorrowHistory { get; set; } = new DVDBorrowCount[1000]; //store borrow history, never remove
 
         public Member(string? firstName, string? lastName, string? phoneNumber, string? pin)
         {
@@ -25,19 +25,6 @@ namespace DVDLibrary
             this.pin = pin;
             MaxBorrows = 5;
             currentBorrowing = new string[MaxBorrows];
-        }
-        // public Member(string? firstName, string? lastName)
-        // {
-        //     this.firstName = firstName;
-        //     this.lastName = lastName;
-        //     this.phoneNumber = null;
-        //     this.pin = null;
-        //     MaxBorrows = 5;
-        //     currentBorrowing = new string[MaxBorrows];
-        // }
-        public override string ToString()
-        {
-            return FirstName?.ToString() + " " + LastName?.ToString() + " " + PhoneNumber?.ToString();
         }
         public int CompareTo(object? obj)
         {

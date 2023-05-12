@@ -315,18 +315,22 @@ namespace DVDLibrary
         public void SortBorrowedHistory(string firstName, string lastName)
         {
             Member memberToFind = new(firstName, lastName, null, null);
-            //Find member using BST search function given first and last name
-            MemberCollection memberCollection = new();
-            Member? member = memberCollection.Search(memberToFind);
+            //Find member using BST search function given first and last name            
+            Member? member = Search(memberToFind);
             if (member == null)
             {
-                Console.WriteLine($"Member {firstName}{lastName} not found.");
+                Console.WriteLine($"Member {firstName} {lastName} not found.");
                 return;
             }
-            DVDBorrowCount[]? historyArray = member.MovieBorrowHistory;
-
+            DVDBorrowCount[] historyArray = member.MovieBorrowHistory!;
+            if (historyArray == null)
+            {
+                Console.WriteLine($"Member {firstName} has no borrowing history.");
+                return;
+            }
+            Console.WriteLine($"member history found with movies: {historyArray.Length}.");
             // Sort the member's history array using mergesort
-            DVDBorrowCount[] sortedArray = Mergesort<DVDBorrowCount>.Sort(historyArray!);
+            DVDBorrowCount[] sortedArray = Mergesort<DVDBorrowCount>.Sort(historyArray); //something wrong with historyarray
             // Display the top 3 frequent borrowed movies
             Console.WriteLine($"Top 3 frequent borrowed movies for {firstName} {lastName}:");
             for (int i = 0; i < Math.Min(sortedArray.Length, 3); i++)
@@ -334,6 +338,28 @@ namespace DVDLibrary
                 Console.WriteLine($"{i + 1}.{sortedArray[i].DVDName} ({sortedArray[i].Count} times)");
             }
         }
+        // public void SortBorrowedHistory(string firstName, string lastName) //test the mergesort
+        // {
+        //     // Sample array for testing purposes
+        //     DVDBorrowCount[] sampleArray = new DVDBorrowCount[]
+        //     {
+        // new DVDBorrowCount { DVDName = "Movie 1", Count = 5 },
+        // new DVDBorrowCount { DVDName = "Movie 2", Count = 3 },
+        // new DVDBorrowCount { DVDName = "Movie 3", Count = 2 },
+        // new DVDBorrowCount { DVDName = "Movie 4", Count = 4 }
+        //     };
+
+        //     // Sort the sample array using mergesort
+        //     DVDBorrowCount[] sortedArray = Mergesort<DVDBorrowCount>.Sort(sampleArray);
+
+        //     // Display the top 3 frequent borrowed movies
+        //     Console.WriteLine($"Top 3 frequent borrowed movies for {firstName} {lastName}:");
+        //     for (int i = 0; i < Math.Min(sortedArray.Length, 3); i++)
+        //     {
+        //         Console.WriteLine($"{i + 1}.{sortedArray[i].DVDName} ({sortedArray[i].Count} times)");
+        //     }
+        // }
+
     }
 
 }
