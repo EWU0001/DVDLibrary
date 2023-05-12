@@ -195,9 +195,9 @@ namespace DVDLibrary
             {
                 hasBorrowers = PrintMembers(root.Left!, movieTitle);
                 Member member = (Member)root.Obj;
-                if (member.CurrentBorrowing!.Contains(movieTitle))
+                if (member.CurrentBorrowing != null && member.CurrentBorrowing!.Contains(movieTitle))
                 {
-                    Console.WriteLine($"{member.FirstName}");
+                    // Console.WriteLine($"{member.FirstName}");
                     hasBorrowers = true;
                 }
                 PrintMembers(root.Right!, movieTitle);
@@ -308,7 +308,7 @@ namespace DVDLibrary
             if (root != null)
             {
                 InOrder(root.Left!);
-                Console.Write(root.Obj.ToString() + "");
+                Console.Write($"{((Member)root.Obj).FirstName}");
                 InOrder(root.Right!);
             }
         }
