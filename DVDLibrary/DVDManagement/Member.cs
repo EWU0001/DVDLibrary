@@ -15,7 +15,7 @@ namespace DVDLibrary
         public string? Pin { get => pin; set => pin = value; }
         public string[]? CurrentBorrowing { get => currentBorrowing; set => currentBorrowing = value!; }
         public int MaxBorrows { get; set; }
-        public DVDBorrowCount[]? MovieBorrowHistory { get; set; } = new DVDBorrowCount[1000]; //store borrow history, never remove
+        public List<DVDBorrowCount> MovieBorrowHistory { get; set; } = new List<DVDBorrowCount>();
 
         public Member(string? firstName, string? lastName, string? phoneNumber, string? pin)
         {
@@ -97,16 +97,23 @@ namespace DVDLibrary
             }
         }
 
-        public void AddBorrowHistory(string movieTitle) //store new borrw to array of borrowing history
+        public void AddBorrowHistory(string movieTitle)
         {
-            for (int index = 0; index < MovieBorrowHistory!.Length && MovieBorrowHistory[index] != null; index++)
+            // Check if the movie title exists in the borrowing history
+            DVDBorrowCount? existingBorrowCount = MovieBorrowHistory.Find(count => count.DVDName == movieTitle);
+
+            if (existingBorrowCount != null)
             {
-                if (MovieBorrowHistory[index].DVDName == movieTitle)
-                {
-                    MovieBorrowHistory[index].Count++; //increment count
-                    //return;
-                }
+                // If the movie title exists, increment the count
+                existingBorrowCount.Count++;
+            }
+            else
+            {
+                // If the movie title doesn't exist, add a new entry to the borrowing history
+                DVDBorrowCount newBorrowCount = new DVDBorrowCount(movieTitle, 1);
+                MovieBorrowHistory.Add(newBorrowCount);
             }
         }
+
     }
 }

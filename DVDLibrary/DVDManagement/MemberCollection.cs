@@ -30,7 +30,7 @@ namespace DVDLibrary
             {
                 if (member.CompareTo(root.Obj) == 0)
                 {
-                    Console.WriteLine("\n Found Member");
+                    Console.WriteLine($"\n Found Member {member}");
                     return (Member)root.Obj;
                 }
                 else if (member.CompareTo(root.Obj) < 0 && root.Left is not null)
@@ -322,20 +322,20 @@ namespace DVDLibrary
                 Console.WriteLine($"Member {firstName} {lastName} not found.");
                 return;
             }
-            DVDBorrowCount[] historyArray = member.MovieBorrowHistory!;
-            if (historyArray == null)
+            List<DVDBorrowCount> historyList = member.MovieBorrowHistory;
+            if (historyList == null)
             {
                 Console.WriteLine($"Member {firstName} has no borrowing history.");
                 return;
             }
-            Console.WriteLine($"member history found with movies: {historyArray.Length}.");
+            Console.WriteLine($"member history found with movies: {historyList.Count}.");
             // Sort the member's history array using mergesort
-            DVDBorrowCount[] sortedArray = Mergesort<DVDBorrowCount>.Sort(historyArray); //something wrong with historyarray
+            List<DVDBorrowCount> sortedList = Mergesort<DVDBorrowCount>.Sort(historyList); //something wrong with historyarray
             // Display the top 3 frequent borrowed movies
             Console.WriteLine($"Top 3 frequent borrowed movies for {firstName} {lastName}:");
-            for (int i = 0; i < Math.Min(sortedArray.Length, 3); i++)
+            for (int i = 0; i < Math.Min(sortedList.Count, 3); i++)
             {
-                Console.WriteLine($"{i + 1}.{sortedArray[i].DVDName} ({sortedArray[i].Count} times)");
+                Console.WriteLine($"{i + 1}.{sortedList[i].DVDName} ({sortedList[i].Count} times)");
             }
         }
         // public void SortBorrowedHistory(string firstName, string lastName) //test the mergesort

@@ -4,61 +4,65 @@ namespace DVDLibrary
 {
     public class Mergesort<T> where T : IComparable<T> //dynamic mergesort class
     {
-        public static T[] Sort(T[]arr) //using merge sort to sort array of borrwing
+        public static List<T> Sort(List<T> list) //using merge sort to sort array of borrwing
         {
-            MergeSort(arr, 0, arr.Length-1);
-            return arr;
+            MergeSort(list, 0, list.Count - 1);
+            return list;
         }
-        public static void MergeSort(T[]arr ,int left, int right)
+        public static void MergeSort(List<T> list, int left, int right)
         {
             if (left < right)
             {
                 int middle = (left + right) / 2;
-                MergeSort(arr, left, middle);
-                MergeSort(arr, middle + 1, right);
-                Merge(arr, left, middle, right);
+                MergeSort(list, left, middle);
+                MergeSort(list, middle + 1, right);
+                Merge(list, left, middle, right);
             }
         }
-
-        private static void Merge(T[]arr ,int left, int middle, int right)
+        private static void Merge(List<T> list, int left, int middle, int right)
         {
-            T[] tempArray = new T[arr.Length];
-            int i = left;
-            int j = middle + 1;
+            int n1 = middle - left + 1;
+            int n2 = right - middle;
+
+            List<T> leftList = new List<T>(n1);
+            List<T> rightList = new List<T>(n2);
+
+            for (int i = 0; i < n1; i++)
+                leftList.Add(list[left + i]);
+            for (int j = 0; j < n2; j++)
+                rightList.Add(list[middle + 1 + j]);
+
+            int x = 0;
+            int y = 0;
             int k = left;
 
-            while (i <= middle && j <= right)
+            while (x < n1 && y < n2)
             {
-                if (arr[i].CompareTo(arr[j]) <= 0)
+                if (leftList[x].CompareTo(rightList[y]) <= 0)
                 {
-                    tempArray[k] = arr[i];
-                    i++;
+                    list[k] = leftList[x];
+                    x++;
                 }
                 else
                 {
-                    tempArray[k] = arr[j];
-                    j++;
+                    list[k] = rightList[y];
+                    y++;
                 }
                 k++;
             }
 
-            while (i <= middle)
+            while (x < n1)
             {
-                tempArray[k] = arr[i];
-                i++;
+                list[k] = leftList[x];
+                x++;
                 k++;
             }
 
-            while (j <= right)
+            while (y < n2)
             {
-                tempArray[k] = arr[j];
-                j++;
+                list[k] = rightList[y];
+                y++;
                 k++;
-            }
-
-            for (k = left; k <= right; k++)
-            {
-                arr[k] = tempArray[k];
             }
         }
     }

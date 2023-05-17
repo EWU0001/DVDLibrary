@@ -94,12 +94,12 @@ namespace DVDLibrary
             {
                 int hash = Hashing(title);
                 int i = 0;
-                while (_hashTable[(hash + i * i) % Size] != null && i < Size)
+                while (_hashTable[(hash + i * i) % Size] != null)
                 {
                     if (_hashTable[(hash + i * i) % Size].Title == title)
                     {
                         _hashTable[(hash + i * i) % Size].NumberOfDVDs -= numberOfRemove;
-                        if (_hashTable[(hash + i * i) % Size].NumberOfDVDs == 0)
+                        if (_hashTable[(hash + i * i) % Size].NumberOfDVDs <= 0)
                         {
                             _hashTable[(hash + i * i) % Size] = null!;
                             _probes[(hash + i * i) % Size] = 0;
@@ -117,14 +117,14 @@ namespace DVDLibrary
         public Movie SearchMovie(string title) //search movie in hashtable
         {
             int hash = Hashing(title);
-            int i = 0;
-            while (_hashTable[(hash + i * i) % Size] != null && i < Size)
+
+            for (int i = 0; i < Size; i++)
             {
-                if (_hashTable[(hash + i * i) % Size].Title == title)
+                if (_hashTable[(hash + i * i) % Size] != null &&
+                    _hashTable[(hash + i * i) % Size].Title == title)
                 {
                     return _hashTable[(hash + i * i) % Size];
                 }
-                i++;
             }
             return null!;
         }
@@ -135,7 +135,7 @@ namespace DVDLibrary
             Movie movie = SearchMovie(inputTitle!);
             if (movie != null)
             {
-                Console.WriteLine($"{movie} ");
+                Console.WriteLine(movie);
             }
             else
             {
@@ -145,9 +145,9 @@ namespace DVDLibrary
         public void DisplayMovies()
         {
             // Get all movies from the hash table
-            Movie[] movies = _hashTable.Where(movie => movie != null).ToArray();
+            List<Movie> movies = _hashTable.Where(movie => movie != null).ToList();
 
-            // pass array of movies to sort method in Mergesort class
+            // pass the list of movies to sort method in Mergesort class
             Mergesort<Movie>.Sort(movies);
 
             // Display the sorted movies
@@ -187,7 +187,7 @@ namespace DVDLibrary
 
             if (movie != null)
             {
-                if (movie.NumberOfDVDs > -1)
+                if (movie.NumberOfDVDs >= 0)
                 {
                     movie.NumberOfDVDs += 1;//increment Movie.numberOfDVDs
                     Console.WriteLine($"You borrowed {movie.Title}");
