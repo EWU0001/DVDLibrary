@@ -7,6 +7,7 @@ namespace DVDLibrary
         private const int Size = 999; //assume max 1000 key,value paris
         private readonly Movie[] _hashTable = new Movie[Size];
         private readonly int[] _probes = new int[Size];
+        private List<DVDBorrowCount> _borrowCounts = new List<DVDBorrowCount>();
 
         private static int Hashing(string title) //covert movie title to hash
         {
@@ -172,8 +173,10 @@ namespace DVDLibrary
             {
                 if (movie.NumberOfDVDs > 0)
                 {
-                    movie.NumberOfDVDs -= 1;//deduct Movie.numberOfDVDs
+                    movie.NumberOfDVDs--;//deduct Movie.numberOfDVDs
+                    movie.TimesBorrowed++; //increment TimesBorrowed
                     Console.WriteLine($"Movie exist and You borrowed {movie.Title}");
+                    UpdateBorrowCount(movie.Title);
                     return true;
                 }
                 Console.WriteLine($"No DVD available for the movie {movie.Title}.");
@@ -189,7 +192,7 @@ namespace DVDLibrary
             {
                 if (movie.NumberOfDVDs >= 0)
                 {
-                    movie.NumberOfDVDs += 1;//increment Movie.numberOfDVDs
+                    movie.NumberOfDVDs++;//increment Movie.numberOfDVDs
                     Console.WriteLine($"You borrowed {movie.Title}");
                     return true;
                 }
@@ -198,6 +201,75 @@ namespace DVDLibrary
             }
             return false; //if not found back to previous command
         }
+        private void UpdateBorrowCount(string movieTitle)
+        {
+            int index = -1;
+            int emptyIndex = -1;
+
+            for (int i = 0; i < _borrowCounts.Count; i++)
+            {
+                if (_borrowCounts[i] != null && _borrowCounts[i].DVDName == movieTitle)
+                {
+                    index = i;
+                    break;
+                }
+                else if (_borrowCounts[i] == null && emptyIndex == -1)
+                {
+                    emptyIndex = i;
+                }
+            }
+
+            if (index != -1)
+            {
+                _borrowCounts[index].Count++;
+            }
+            else if (emptyIndex != -1)
+            {
+                _borrowCounts[emptyIndex] = new DVDBorrowCount(movieTitle, 1);
+            }
+        }
+        // public void DisplayTopBorrowedMovies()
+        // {
+        //     List<DVDBorrowCount> sortedBorrowCounts = Mergesort<DVDBorrowCount>.Sort(_borrowCounts);
+
+        //     int count = 3; // Specify the desired count of top borrowed movies
+        //     Console.WriteLine($"Displaying Top {count} Borrowed Movies:");
+
+        //     for (int i = 0; i < Math.Min(sortedBorrowCounts.Count, count); i++)
+        //     {
+        //         DVDBorrowCount borrowCount = sortedBorrowCounts[i];
+        //         Console.WriteLine($"{i + 1}. Movie Title: {borrowCount.DVDName}, Borrow Count: {borrowCount.Count}");
+        //     }
+        // }
+        public void DisplayTopBorrowedMovies()
+        {
+            List<DVDBorrowCount> sortedBorrowCounts = Mergesort<DVDBorrowCount>.Sort(_borrowCounts);
+
+            int count = 3; // Specify the desired count of top borrowed movies
+            Console.WriteLine($"Displaying Top {count} Borrowed Movies:");
+
+            for (int i = 0; i < Math.Min(sortedBorrowCounts.Count, count); i++)
+            {
+                DVDBorrowCount borrowCount = sortedBorrowCounts[i];
+                Console.WriteLine($"{i + 1}. Movie Title: {borrowCount.DVDName}, Borrow Count: {borrowCount.Count}");
+            }
+
+            // Debug statements to check the data
+            Console.WriteLine("Debug: Sorted Borrow Counts:");
+            foreach (DVDBorrowCount borrowCount in sortedBorrowCounts)
+            {
+                Console.WriteLine($"Movie Title: {borrowCount.DVDName}, Borrow Count: {borrowCount.Count}");
+            }
+            Console.WriteLine("Debug: _borrowCounts:");
+            foreach (DVDBorrowCount borrowCount in _borrowCounts)
+            {
+                Console.WriteLine($"Movie Title: {borrowCount.DVDName}, Borrow Count: {borrowCount.Count}");
+            }
+        }
+
+
+
+
 
         //for performance analysis, number of probe require to find  movie, -1 if movie doesn't exist in collection
         // public int GetProbeCount(string title)   

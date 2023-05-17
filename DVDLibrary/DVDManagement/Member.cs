@@ -9,6 +9,7 @@ namespace DVDLibrary
         private string? lastName;
         private string? phoneNumber;
         private string? pin;
+
         public string? FirstName { get => firstName; set => firstName = value; }
         public string? LastName { get => lastName; set => lastName = value; }
         public string? PhoneNumber { get => phoneNumber; set => phoneNumber = value; }
@@ -16,6 +17,7 @@ namespace DVDLibrary
         public string[]? CurrentBorrowing { get => currentBorrowing; set => currentBorrowing = value!; }
         public int MaxBorrows { get; set; }
         public List<DVDBorrowCount> MovieBorrowHistory { get; set; } = new List<DVDBorrowCount>();
+        public string FullName => $"{FirstName}{LastName}";
 
         public Member(string? firstName, string? lastName, string? phoneNumber, string? pin)
         {

@@ -2,205 +2,125 @@
 
 namespace DVDLibrary
 {
-    public class MemberCollection : IBSTree<Member>
+    public class MemberCollection
     {
-        public Node? root;
+        public List<Member> members;
 
         public MemberCollection()
         {
-            root = null;
+            members = new List<Member>();
         }
         public bool IsEmpty()
         {
-            return root == null;
-            throw new Exception("Is empty");
+            return members.Count == 0;
         }
-        public Member? Search(Member member) //search function allows access in other classes
+        public Member Search(Member member) //search function allows access in other classes
         {
-            if (root is not null)
+            int left = 0;
+            int right = members.Count - 1;
+
+            while (left <= right)
             {
-                return Search(member, root);
+                int mid = left + (right - left) / 2;
+
+                if (string.Compare(members[mid].FullName, member.FullName) == 0)
+                    return members[mid];
+
+                if (string.Compare(members[mid].FullName, member.FullName) < 0)
+                    left = mid + 1;
+                else
+                    right = mid - 1;
             }
-            Console.WriteLine("\nMember not found, register new member");
-            return null;
-        }
-        private Member? Search(Member member, Node root)
-        {
-            if (root != null)
-            {
-                if (member.CompareTo(root.Obj) == 0)
-                {
-                    Console.WriteLine($"\n Found Member {member}");
-                    return (Member)root.Obj;
-                }
-                else if (member.CompareTo(root.Obj) < 0 && root.Left is not null)
-                {
-                    Console.WriteLine("\n continue searching....");
-                    return Search(member, root.Left);
-                }
-                else if (root.Right is not null)
-                {
-                    Console.WriteLine("\n continue searching....");
-                    return Search(member, root.Right);
-                }
-            }
-            Console.WriteLine("\nMember Not found, register new member!");
-            return null;
+            return null!; // Member not found
         }
         public void AddMember(Member member) //add member allows accessed in other classes
         {
-            if (root == null)
+            Member? foundMember = Search(member);
+
+            if (foundMember != null)
             {
-                root = new Node(member);
-                Console.WriteLine($"Member {member.FirstName} added successfully at node");
+                // Member already exists in the collection
+                Console.WriteLine($"Member {member.FirstName} already exists in the collection");
             }
             else
             {
-                if (Insert(member, root))
-                {
-                    Console.WriteLine($"Member {member.FirstName} added successfully");
-                }
-                else
-                {
-                    Console.WriteLine($"Member {member.FirstName} already exists");
-                }
+                // Insert the member at the appropriate position to maintain the sorted order
+                int index = FindInsertionIndex(member);
+                members.Insert(index, member);
+                Console.WriteLine($"Member {member.FirstName} added");
             }
         }
-        private bool Insert(Member member, Node pointer)
+        private int CompareMembers(Member member1, Member member2)
         {
-            if (member.CompareTo(pointer.Obj) == 0)
+            return string.Compare(member1.FullName, member2.FullName);
+        }
+        private int FindInsertionIndex(Member member)
+        {
+            int left = 0;
+            int right = members.Count - 1;
+
+            while (left <= right)
             {
-                return false;
-            }
-            else if (member.CompareTo(pointer.Obj) < 0)
-            {
-                if (pointer.Left == null)
-                {
-                    pointer.Left = new Node(member);
-                    Console.WriteLine($"Member {member.FirstName} added successfully at left child");
-                    return true;
-                }
+                int mid = left + (right - left) / 2;
+
+                int compareResult = CompareMembers(members[mid], member);
+                if (compareResult < 0)
+                    left = mid + 1;
                 else
-                {
-                    return Insert(member, pointer.Left);
-                }
+                    right = mid - 1;
             }
-            else
-            {
-                if (pointer.Right == null)
-                {
-                    pointer.Right = new Node(member);
-                    Console.WriteLine($"Member {member.FirstName} added successfully at right child");
-                    return true;
-                }
-                else
-                {
-                    return Insert(member, pointer.Right);
-                }
-            }
+            return left;
         }
         public void Remove(Member member) //delete a registered member from system
         {
-            Node ptr = root!; //set pointer to root
-            Node parent = null!; //parent of pointer
-            while ((ptr != null) && member.CompareTo(ptr.Obj) != 0)
+            Member? foundMember = Search(member);
+            if (foundMember != null)
             {
-                parent = ptr;
-                if (member.CompareTo(ptr.Obj) < 0)
-                    ptr = ptr.Left!;  // move to left child of pointer
-                else
-                    ptr = ptr.Right!; //else to right child of pointer
-            }
-            if (ptr != null) //if search found the object, two scenarios
-            {
-                if ((ptr.Left != null) && (ptr.Right != null)) //first scenario if object has two children
-                {
-                    if (ptr.Left.Right == null)// special case when right subtree of pointer left is empty
-                    {
-                        Console.WriteLine($"Member {member.FirstName} successfully removed from the system.");
-                        ptr.Obj = ptr.Left.Obj;
-                        ptr.Left = ptr.Left.Left;
-                    }
-                    else
-                    {
-                        Node p = ptr.Left;
-                        Node pp = ptr;
-                        while (p.Right != null)
-                        {
-                            pp = p;
-                            p = p.Right;
-                        }
-                        Console.WriteLine($"Member {member.FirstName} successfully removed from the system.");
-                        ptr.Obj = p.Obj;
-                        pp.Right = p.Left;
-                    }
-                }
-                else //when obj has one child or no child
-                {
-                    Node c = null!;
-                    if (ptr.Left != null)
-                        c = ptr.Left;
-                    else if (ptr.Right != null)
-                        c = ptr.Right;
-                    if (ptr == root)
-                        root = c;
-                    else
-                    {
-                        if (ptr == parent.Left && parent.Left is not null)
-                            parent.Left = c;
-                        else if (parent.Right is not null)
-                            parent.Right = c;
-                    }
-                    Console.WriteLine($"Member {member.FirstName} successfully removed from the system.");
-                }
+                members.Remove(foundMember);
+                Console.WriteLine($"Member {member.FirstName} removed");
             }
             else
             {
                 Console.WriteLine($"Member {member.FirstName} does not exist in the system");
             }
+
         }
-        public string? GetMemberNumber(Member member) //get phone number of a member
+        public string GetMemberNumber(Member member)
         {
-            Member? foundMember = Search(member);
+            Member foundMember = Search(member);
+
             if (foundMember != null)
             {
                 Console.WriteLine($"Phone number for {foundMember.FirstName} is: {foundMember.PhoneNumber}");
-                return foundMember.PhoneNumber;
+                return foundMember.PhoneNumber!;
             }
             else
             {
-                Console.WriteLine($"{member} not found ");
-                return null;
+                Console.WriteLine($"Member {member.FirstName} not found");
+                return null!;
             }
         }
         public void GetListOfBorrowers(string movieTitle) //list of members borrow a specific movie given by movie title.
         {
             Console.WriteLine($"List of members who borrowed '{movieTitle}':");
 
-            bool hasBorrowers = false;
-            TraverseInOrder(); // iterate through all members in the collection
-
-            Console.WriteLine("\n\n");
-            // iterate through all members in the collection to print borrowed movies
-            hasBorrowers = PrintMembers(root!, movieTitle);
+            bool hasBorrowers = PrintMembers(movieTitle);
             if (!hasBorrowers)
             {
-                Console.WriteLine($"No one is borrowing the movie:'{movieTitle}'");
+                Console.WriteLine($"No one is borrowing the movie: '{movieTitle}'");
             }
         }
-        private bool PrintMembers(Node root, string movieTitle)
+        private bool PrintMembers(string movieTitle)
         {
             bool hasBorrowers = false;
-            if (root != null)
+
+            foreach (Member member in members)
             {
-                hasBorrowers = PrintMembers(root.Left!, movieTitle);
-                Member member = (Member)root.Obj;
-                if (member.CurrentBorrowing != null && member.CurrentBorrowing!.Contains(movieTitle))
+                if (member.CurrentBorrowing != null && member.CurrentBorrowing.Contains(movieTitle))
                 {
-                    // Console.WriteLine($"{member.FirstName}");
+                    Console.WriteLine($"Member: {member.FullName}");
                     hasBorrowers = true;
                 }
-                PrintMembers(root.Right!, movieTitle);
             }
             return hasBorrowers;
         }
@@ -252,7 +172,6 @@ namespace DVDLibrary
             {
                 Console.WriteLine($"Member {firstName} {lastName} not found in the system.");
             }
-
         }
         public void GetBorrowedDVDsForMember(string firstName, string lastName)
         {
@@ -298,68 +217,32 @@ namespace DVDLibrary
             Console.WriteLine("Check member details again");
             return false;
         }
-
-        public void TraverseInOrder()
-        {
-            InOrder(root!);
-        }
-        private void InOrder(Node root)
-        {
-            if (root != null)
-            {
-                InOrder(root.Left!);
-                Console.Write($"{((Member)root.Obj).FirstName}");
-                InOrder(root.Right!);
-            }
-        }
-        public void SortBorrowedHistory(string firstName, string lastName)
-        {
-            Member memberToFind = new(firstName, lastName, null, null);
-            //Find member using BST search function given first and last name            
-            Member? member = Search(memberToFind);
-            if (member == null)
-            {
-                Console.WriteLine($"Member {firstName} {lastName} not found.");
-                return;
-            }
-            List<DVDBorrowCount> historyList = member.MovieBorrowHistory;
-            if (historyList == null)
-            {
-                Console.WriteLine($"Member {firstName} has no borrowing history.");
-                return;
-            }
-            Console.WriteLine($"member history found with movies: {historyList.Count}.");
-            // Sort the member's history array using mergesort
-            List<DVDBorrowCount> sortedList = Mergesort<DVDBorrowCount>.Sort(historyList); //something wrong with historyarray
-            // Display the top 3 frequent borrowed movies
-            Console.WriteLine($"Top 3 frequent borrowed movies for {firstName} {lastName}:");
-            for (int i = 0; i < Math.Min(sortedList.Count, 3); i++)
-            {
-                Console.WriteLine($"{i + 1}.{sortedList[i].DVDName} ({sortedList[i].Count} times)");
-            }
-        }
-        // public void SortBorrowedHistory(string firstName, string lastName) //test the mergesort
+        // public void SortBorrowedHistory(string firstName, string lastName) //for display list of members from a member
         // {
-        //     // Sample array for testing purposes
-        //     DVDBorrowCount[] sampleArray = new DVDBorrowCount[]
+        //     Member memberToFind = new(firstName, lastName, null, null);
+        //     //Find member using BST search function given first and last name            
+        //     Member? member = Search(memberToFind);
+        //     if (member == null)
         //     {
-        // new DVDBorrowCount { DVDName = "Movie 1", Count = 5 },
-        // new DVDBorrowCount { DVDName = "Movie 2", Count = 3 },
-        // new DVDBorrowCount { DVDName = "Movie 3", Count = 2 },
-        // new DVDBorrowCount { DVDName = "Movie 4", Count = 4 }
-        //     };
-
-        //     // Sort the sample array using mergesort
-        //     DVDBorrowCount[] sortedArray = Mergesort<DVDBorrowCount>.Sort(sampleArray);
-
+        //         Console.WriteLine($"Member {firstName} {lastName} not found.");
+        //         return;
+        //     }
+        //     List<DVDBorrowCount> historyList = member.MovieBorrowHistory;
+        //     if (historyList == null)
+        //     {
+        //         Console.WriteLine($"Member {firstName} has no borrowing history.");
+        //         return;
+        //     }
+        //     Console.WriteLine($"member history found with movies: {historyList.Count}.");
+        //     // Sort the member's history array using mergesort
+        //     List<DVDBorrowCount> sortedList = Mergesort<DVDBorrowCount>.Sort(historyList);
         //     // Display the top 3 frequent borrowed movies
         //     Console.WriteLine($"Top 3 frequent borrowed movies for {firstName} {lastName}:");
-        //     for (int i = 0; i < Math.Min(sortedArray.Length, 3); i++)
+        //     for (int i = 0; i < Math.Min(sortedList.Count, 3); i++)
         //     {
-        //         Console.WriteLine($"{i + 1}.{sortedArray[i].DVDName} ({sortedArray[i].Count} times)");
+        //         Console.WriteLine($"{i + 1}.{sortedList[i].DVDName} ({sortedList[i].Count} times)");
         //     }
         // }
-
     }
 
 }

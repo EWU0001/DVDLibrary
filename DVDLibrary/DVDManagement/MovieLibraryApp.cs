@@ -172,7 +172,7 @@ namespace DVDLibrary
                     Console.WriteLine("3. Borrow a movie DVD");
                     Console.WriteLine("4. Return a movie DVD");
                     Console.WriteLine("5. List current borrowing movies");
-                    Console.WriteLine("6. Display the top 3 movies rented by the member");
+                    Console.WriteLine("6. Display the top 3 movies most borrowed movies");
                     Console.WriteLine("0. Return to main menu");
                     Console.Write("\nEnter your choice ==> ");
 
@@ -220,8 +220,8 @@ namespace DVDLibrary
                             memberCollection.GetBorrowedDVDsForMember(inputFirstName!, inputLastName!);
                             break;
                         case 6:
-                            Console.WriteLine("Selected 6 - Top 3 most borrowed movies");
-                            memberCollection.SortBorrowedHistory(inputFirstName!, inputLastName!);
+                            Console.WriteLine("Selected 6 - Top 3 the most borrowed movies");
+                            movieCollection.DisplayTopBorrowedMovies();
                             break;
                         case 0:
                             Console.WriteLine("Exiting program...");
