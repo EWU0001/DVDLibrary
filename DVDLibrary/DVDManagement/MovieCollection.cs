@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Collections.Generic;
 
 namespace DVDLibrary
 {
@@ -218,6 +218,7 @@ namespace DVDLibrary
                     emptyIndex = i;
                 }
             }
+            Console.WriteLine($"Debug: index = {index}, emptyIndex = {emptyIndex}");
 
             if (index != -1)
             {
@@ -227,20 +228,12 @@ namespace DVDLibrary
             {
                 _borrowCounts[emptyIndex] = new DVDBorrowCount(movieTitle, 1);
             }
+            else
+            {
+                _borrowCounts.Add(new DVDBorrowCount(movieTitle, 1));
+            }
         }
-        // public void DisplayTopBorrowedMovies()
-        // {
-        //     List<DVDBorrowCount> sortedBorrowCounts = Mergesort<DVDBorrowCount>.Sort(_borrowCounts);
 
-        //     int count = 3; // Specify the desired count of top borrowed movies
-        //     Console.WriteLine($"Displaying Top {count} Borrowed Movies:");
-
-        //     for (int i = 0; i < Math.Min(sortedBorrowCounts.Count, count); i++)
-        //     {
-        //         DVDBorrowCount borrowCount = sortedBorrowCounts[i];
-        //         Console.WriteLine($"{i + 1}. Movie Title: {borrowCount.DVDName}, Borrow Count: {borrowCount.Count}");
-        //     }
-        // }
         public void DisplayTopBorrowedMovies()
         {
             List<DVDBorrowCount> sortedBorrowCounts = Mergesort<DVDBorrowCount>.Sort(_borrowCounts);
@@ -253,24 +246,7 @@ namespace DVDLibrary
                 DVDBorrowCount borrowCount = sortedBorrowCounts[i];
                 Console.WriteLine($"{i + 1}. Movie Title: {borrowCount.DVDName}, Borrow Count: {borrowCount.Count}");
             }
-
-            // Debug statements to check the data
-            Console.WriteLine("Debug: Sorted Borrow Counts:");
-            foreach (DVDBorrowCount borrowCount in sortedBorrowCounts)
-            {
-                Console.WriteLine($"Movie Title: {borrowCount.DVDName}, Borrow Count: {borrowCount.Count}");
-            }
-            Console.WriteLine("Debug: _borrowCounts:");
-            foreach (DVDBorrowCount borrowCount in _borrowCounts)
-            {
-                Console.WriteLine($"Movie Title: {borrowCount.DVDName}, Borrow Count: {borrowCount.Count}");
-            }
         }
-
-
-
-
-
         //for performance analysis, number of probe require to find  movie, -1 if movie doesn't exist in collection
         // public int GetProbeCount(string title)   
         // {
