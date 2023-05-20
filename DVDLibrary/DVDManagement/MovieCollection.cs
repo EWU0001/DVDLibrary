@@ -9,15 +9,16 @@ namespace DVDLibrary
         private readonly int[] _probes = new int[Size];
         private List<DVDBorrowCount> _borrowCounts = new List<DVDBorrowCount>();
 
-        private static int Hashing(string title) //covert movie title to hash
+        private static int Hashing(string title) //hashing with division method
         {
             int hash = 0;
             foreach (char c in title)
             {
-                hash += c;
+                hash = (hash + (int)c) % Size;
             }
-            return hash % Size;
+            return hash;
         }
+
 
         public bool AddMovie(Movie movie) //add new movie object
         {
@@ -175,7 +176,7 @@ namespace DVDLibrary
                 {
                     movie.NumberOfDVDs--;//deduct Movie.numberOfDVDs
                     movie.TimesBorrowed++; //increment TimesBorrowed
-                    Console.WriteLine($"Movie exist and You borrowed {movie.Title}");
+                    Console.WriteLine($"Movie {movie.Title} available");
                     UpdateBorrowCount(movie.Title);
                     return true;
                 }
@@ -193,7 +194,7 @@ namespace DVDLibrary
                 if (movie.NumberOfDVDs >= 0)
                 {
                     movie.NumberOfDVDs++;//increment Movie.numberOfDVDs
-                    Console.WriteLine($"You borrowed {movie.Title}");
+                    Console.WriteLine($"You returned {movie.Title}");
                     return true;
                 }
                 Console.WriteLine($"No DVD available for the movie {movie.Title}.");
@@ -218,8 +219,6 @@ namespace DVDLibrary
                     emptyIndex = i;
                 }
             }
-            Console.WriteLine($"Debug: index = {index}, emptyIndex = {emptyIndex}");
-
             if (index != -1)
             {
                 _borrowCounts[index].Count++;

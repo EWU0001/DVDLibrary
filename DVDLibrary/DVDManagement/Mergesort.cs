@@ -6,6 +6,9 @@ namespace DVDLibrary
     {
         public static List<T> Sort(List<T> list) //using merge sort to sort array of borrwing
         {
+            if (list == null)
+                throw new ArgumentNullException(nameof(list), "Input list cannot be null.");
+
             MergeSort(list, 0, list.Count - 1);
             return list;
         }

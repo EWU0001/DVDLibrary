@@ -16,7 +16,6 @@ namespace DVDLibrary
         public string? Pin { get => pin; set => pin = value; }
         public string[]? CurrentBorrowing { get => currentBorrowing; set => currentBorrowing = value!; }
         public int MaxBorrows { get; set; }
-        public List<DVDBorrowCount> MovieBorrowHistory { get; set; } = new List<DVDBorrowCount>();
         public string FullName => $"{FirstName}{LastName}";
 
         public Member(string? firstName, string? lastName, string? phoneNumber, string? pin)
@@ -61,7 +60,7 @@ namespace DVDLibrary
                     }
                 }
                 currentBorrowing[index] = movieTitle; //add movieTitle to currentBorrowing array
-                AddBorrowHistory(movieTitle); //call AddBorrowHistory and bring in movieTitle
+                Console.WriteLine($"Borrowed {movieTitle} successfully!");
             }
             catch (InvalidOperationException ex)
             {
@@ -69,7 +68,7 @@ namespace DVDLibrary
                 return; // return to previous command
             }
         }
-        public void RemoveFromBorrow(string movieTitle) //remove movieTitle from currentBorrowing array
+        public bool RemoveFromBorrow(string movieTitle) //remove movieTitle from currentBorrowing array
         {
             try
             {
@@ -90,32 +89,15 @@ namespace DVDLibrary
                 {
                     currentBorrowing[i] = currentBorrowing[i + 1];
                 }
-                currentBorrowing[currentBorrowing.Length - 1] = null!; //set the last element in borrwedDVDs array to null
+                currentBorrowing[currentBorrowing.Length - 1] = null!; //set the last element in borrwedDVDs array to null                
+                Console.WriteLine($"Movie {movieTitle} removed from member's account!");
+                return true;
             }
             catch (InvalidOperationException e)
             {
                 Console.WriteLine(e.Message);
-                return; // return to previous command 
+                return false; // return to previous command 
             }
         }
-
-        public void AddBorrowHistory(string movieTitle)
-        {
-            // Check if the movie title exists in the borrowing history
-            DVDBorrowCount? existingBorrowCount = MovieBorrowHistory.Find(count => count.DVDName == movieTitle);
-
-            if (existingBorrowCount != null)
-            {
-                // If the movie title exists, increment the count
-                existingBorrowCount.Count++;
-            }
-            else
-            {
-                // If the movie title doesn't exist, add a new entry to the borrowing history
-                DVDBorrowCount newBorrowCount = new DVDBorrowCount(movieTitle, 1);
-                MovieBorrowHistory.Add(newBorrowCount);
-            }
-        }
-
     }
 }

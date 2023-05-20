@@ -140,38 +140,51 @@ namespace DVDLibrary
                 Console.WriteLine($"Member {firstName} {lastName} not found in the system.");
                 return;
             }
-            //check if movie is available
-            if (!movieCollection.BorrowMovie(movieTitle))
+            if (foundMember.CurrentBorrowing!.Contains(movieTitle))
             {
-                Console.WriteLine($"No DVD available for the movie {movieTitle}.");
+                Console.WriteLine($"Already borrowed {movieTitle}");
                 return;
             }
+            //check if movie is available
             // Add the movie to member's borrow list
             try
             {
                 foundMember.AddToBorrow(movieTitle);
-                Console.WriteLine($"Member {firstName} {lastName} borrowed {movieTitle} successfully!");
+                if (!movieCollection.BorrowMovie(movieTitle))
+                {
+                    foundMember.RemoveFromBorrow(movieTitle);
+                    Console.WriteLine($"No DVD available for the movie {movieTitle}.");
+                    return;
+                }
             }
             catch (InvalidOperationException ex)
             {
                 Console.WriteLine(ex.Message);
-                //if add to borrow fails, return the movie to collection
-                movieCollection.ReturnMovie(movieTitle);
+                return;
             }
         }
-        public void MemberReturnDVD(string? firstName, string? lastName, string movieTitle)//return a movieDVD
+        public bool MemberReturnDVD(string? firstName, string? lastName, string movieTitle)//return a movieDVD
         {
             Member memberToBorrow = new Member(firstName, lastName, "", "");
             Member? foundMember = Search(memberToBorrow);
             if (foundMember != null)
             {
-                foundMember.RemoveFromBorrow(movieTitle);
-                Console.WriteLine($"Member {firstName} returned {movieTitle} successfully!");
+                if (foundMember.RemoveFromBorrow(movieTitle))
+                {
+
+                    return true;
+                }
+
+                else
+                {
+                    Console.WriteLine($"Movie {movieTitle} not found in the member's current borrowing.");
+                }
             }
             else
             {
                 Console.WriteLine($"Member {firstName} {lastName} not found in the system.");
             }
+            return false;
         }
         public void GetBorrowedDVDsForMember(string firstName, string lastName)
         {
@@ -217,33 +230,6 @@ namespace DVDLibrary
             Console.WriteLine("Check member details again");
             return false;
         }
-        // public void SortBorrowedHistory(string firstName, string lastName) //for display list of members from a member
-        // {
-        //     Member memberToFind = new(firstName, lastName, null, null);
-        //     //Find member using BST search function given first and last name            
-        //     Member? member = Search(memberToFind);
-        //     if (member == null)
-        //     {
-        //         Console.WriteLine($"Member {firstName} {lastName} not found.");
-        //         return;
-        //     }
-        //     List<DVDBorrowCount> historyList = member.MovieBorrowHistory;
-        //     if (historyList == null)
-        //     {
-        //         Console.WriteLine($"Member {firstName} has no borrowing history.");
-        //         return;
-        //     }
-        //     Console.WriteLine($"member history found with movies: {historyList.Count}.");
-        //     // Sort the member's history array using mergesort
-        //     List<DVDBorrowCount> sortedList = Mergesort<DVDBorrowCount>.Sort(historyList);
-        //     // Display the top 3 frequent borrowed movies
-        //     Console.WriteLine($"Top 3 frequent borrowed movies for {firstName} {lastName}:");
-        //     for (int i = 0; i < Math.Min(sortedList.Count, 3); i++)
-        //     {
-        //         Console.WriteLine($"{i + 1}.{sortedList[i].DVDName} ({sortedList[i].Count} times)");
-        //     }
-        // }
     }
-
 }
 
