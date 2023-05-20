@@ -98,6 +98,7 @@ namespace DVDLibrary
                             Console.WriteLine("--------------------------");
                             Console.WriteLine("Selected 1 - add movies to the system");
                             Console.WriteLine("--------------------------");
+                            Console.WriteLine("-------auto-generate------");
                             // Populate the movie library with auto-generate movies data
                             List<Movie> movies = PopulateData.GenerateMovies();
                             foreach (Movie movie in movies)
@@ -112,13 +113,19 @@ namespace DVDLibrary
                             Console.WriteLine("--------------------------");
                             Console.WriteLine("Selected 2 - add DVDs to existing movies");
                             Console.WriteLine("--------------------------");
-                            movieCollection.AddDVD("Python", 1); //remove dvd from an example movie
+                            // Console.WriteLine("Enter movie title >> ");
+                            // string? inputTitle = Console.ReadLine();
+                            movieCollection.AddDVD("Python", 1); // dvd from an example movie
                             break;
                         case 3:
                             Console.Clear();
                             Console.WriteLine("--------------------------");
                             Console.WriteLine("Selected 3 - remove DVDs from system");
                             Console.WriteLine("--------------------------");
+                            Console.WriteLine("Enter movie title >> (press enter auto-generate)");
+                            string? inputTitle = Console.ReadLine();
+                            Console.WriteLine("Enter number of DVD to be removed >> (press enter auto-generate)");
+                            Console.ReadLine();
                             movieCollection.RemoveDVD("Python", 1); //remove 1 dvd from an example movie
                             break;
                         case 4:
@@ -126,15 +133,20 @@ namespace DVDLibrary
                             Console.WriteLine("--------------------------");
                             Console.WriteLine("Selected 4 - register new members");
                             Console.WriteLine("--------------------------");
-                            Console.WriteLine("input first name");
+                            Console.WriteLine("input first name (press enter auto-generate first name'aaa')");
                             string? inputFirstName = Console.ReadLine();
-                            Console.WriteLine("input last name");
+                            Console.WriteLine("input last name (press enter auto-generate last name 'bbb')");
                             string? inputLastName = Console.ReadLine();
-                            Console.WriteLine("input phone number");
+                            Console.WriteLine("input phone number (press enter auto-generate number '0000000')");
                             string? inputPhoneNumber = Console.ReadLine();
-                            Console.WriteLine("input 4 digits pin");
+                            Console.WriteLine("input 4 digits pin (enter pin manually)");
                             string? inputPin = Console.ReadLine();
-                            Member memberToAdd = new("aaa", "bbb", "0000000", "0000");
+                            while (inputPin?.Length != 4)
+                            {
+                                Console.WriteLine("Invalid PIN length. PIN must be exactly 4 digits.");
+                                inputPin = Console.ReadLine();
+                            }
+                            Member memberToAdd = new("aaa", "bbb", "0000000", $"{inputPin}");
                             memberCollection.AddMember(memberToAdd);
                             break;
                         case 5:

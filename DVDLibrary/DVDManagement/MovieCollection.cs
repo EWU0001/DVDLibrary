@@ -63,8 +63,7 @@ namespace DVDLibrary
         public void AddDVD(string movieTitle, int inputNumberOfDVDs) //add dvd to current movie object
         {
             // Prompt the user to enter a movie title and read the input
-            //Console.WriteLine("Enter movie title >> ");
-            //string? inputTitle = Console.ReadLine();
+
 
             // Search for the movie in the hashtable
             Movie movie = SearchMovie(movieTitle!);
