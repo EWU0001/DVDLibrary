@@ -21,11 +21,11 @@ namespace DVDLibrary
         }
         public override string ToString()
         {
-            return $"Movie Title: {Title} " +
-                   $"Duration(minutes): {Duration} " +
-                   $"Classification: {Classification} " +
-                   $"Genre: {Genre} " +
-                   $"Number of availble DVD: {NumberOfDVDs}";
+            return $" Movie Title: '{Title}' " +
+                   $" Duration(minutes): '{Duration}' " +
+                   $" Classification: '{Classification}' " +
+                   $" Genre: '{Genre}' " +
+                   $" Number of availble DVD: '{NumberOfDVDs}'";
         }
         public enum MovieGenres
         {

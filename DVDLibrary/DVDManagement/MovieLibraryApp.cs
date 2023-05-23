@@ -312,10 +312,10 @@ namespace DVDLibrary
 
         static bool StaffAuth()
         {
-            string defaultUserName = "staff";
-            string defaultPassword = "today123";
+            string defaultUserName = "staff"; //default staff username
+            string defaultPassword = "today123"; //default today123 password
             Console.Write("Enter staff username >> ");
-            string? inputUserName = defaultUserName; //make it auto login for tesing purpose
+            string? inputUserName = defaultUserName; //set it auto login for tesing purpose
             Console.Write("Enter password >> ");
             string? inputPassword = defaultPassword;
             while (true)

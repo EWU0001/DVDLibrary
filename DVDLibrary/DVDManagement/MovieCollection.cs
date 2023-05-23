@@ -16,6 +16,7 @@ namespace DVDLibrary
             {
                 hash = (hash + (int)c) % Size;
             }
+            Console.WriteLine(hash);
             return hash;
         }
 
@@ -155,12 +156,7 @@ namespace DVDLibrary
             Console.WriteLine("Displaying Movies in dictionary order: ");
             foreach (Movie movie in movies)
             {
-                Console.WriteLine(
-                    $"Movie Title: {movie.Title} " +
-                    $"Genre: {movie.Genre} " +
-                    $"Classification: {movie.Classification}" +
-                    $"Duration: {movie.Duration}" +
-                    $"Number of DVD available: {movie.NumberOfDVDs}");
+                Console.WriteLine(movie);
             }
         }
 
