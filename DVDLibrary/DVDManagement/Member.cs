@@ -29,13 +29,7 @@ namespace DVDLibrary
         }
         public int CompareTo(object? obj)
         {
-            if (obj is not Member other)
-            {
-                throw new ArgumentException("Object to compare must be a Member.", nameof(obj));
-            }
-            return this.lastName!.CompareTo(other.lastName) is not 0
-                ? this.lastName!.CompareTo(other.lastName)
-                : this.firstName!.CompareTo(other.firstName);
+            throw new NotImplementedException();
         }
 
         public void AddToBorrow(string movieTitle) //add movie dvd to array of current borrowing 
