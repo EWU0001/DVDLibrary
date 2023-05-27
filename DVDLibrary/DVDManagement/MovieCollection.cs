@@ -235,20 +235,5 @@ namespace DVDLibrary
                 Console.WriteLine($"{i + 1}. Movie Title: {borrowCount.DVDName}, Borrow Count: {borrowCount.Count}");
             }
         }
-        //for performance analysis, number of probe require to find  movie, -1 if movie doesn't exist in collection
-        // public int GetProbeCount(string title)   
-        // {
-        //     int hash = Hashing(title);
-        //     int i = 0;
-        //     while (_hashTable[(hash + i * i) % Size] != null && i < Size)
-        //     {
-        //         if (_hashTable[(hash + i * i) % Size].Title == title)
-        //         {
-        //             return _probes[(hash + i * i) % Size];
-        //         }
-        //         i++;
-        //     }
-        //     return -1;
-        // }
     }
 }

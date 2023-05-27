@@ -131,7 +131,6 @@ namespace DVDLibrary
                 Console.WriteLine("Invalid input: first name or last name is missing");
                 return;
             }
-            // Search for the member in the BST
             Member memberToBorrow = new(firstName, lastName, null, null);
             Member? foundMember = Search(memberToBorrow);
 
@@ -145,7 +144,6 @@ namespace DVDLibrary
                 Console.WriteLine($"Already borrowed {movieTitle}");
                 return;
             }
-            //check if movie is available
             // Add the movie to member's borrow list
             try
             {
