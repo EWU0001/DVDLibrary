@@ -8,6 +8,7 @@ namespace DVDLibrary
         private readonly Movie[] _hashTable = new Movie[Size];
         private readonly int[] _probes = new int[Size];
         private List<DVDBorrowCount> _borrowCounts = new List<DVDBorrowCount>();
+        private readonly Movie deleteMarker = new Movie("(deleted)", 0, null!, null!, 0);
 
         private static int Hashing(string title) //hashing with division method
         {
@@ -16,24 +17,19 @@ namespace DVDLibrary
             {
                 hash = (hash + (int)c) % Size;
             }
-            Console.WriteLine(hash);
             return hash;
+            // return 1; //for testing purpose of create collision
         }
-
 
         public bool AddMovie(Movie movie) //add new movie object
         {
-            if (SearchMovie(movie.Title) != null) //duplicate search here
-            {
-                Console.WriteLine("Movie already exists in collection");
-                return false;
-            }
             int hash = Hashing(movie.Title); //calculate hash code
             int i = 0;
-            while (_hashTable[(hash + i * i) % Size] != null)
+            while (_hashTable[(hash + i * i) % Size] != null && _hashTable[(hash + i * i)] != deleteMarker)
             {
                 if (_hashTable[(hash + i * i) % Size].Title == movie.Title) // movie already exists in the collection
                 {
+                    Console.WriteLine($"movie: {movie.Title} already exists");
                     return false;
                 }
                 i++;
@@ -44,8 +40,9 @@ namespace DVDLibrary
             }
             if (i > 0) // collision has occurred
             {
+                Console.WriteLine($"inserting {movie.Title} collision occurs"); //to show collision
                 int j = 1;
-                while (_hashTable[(hash + j * j) % Size] != null)
+                while (_hashTable[(hash + j * j) % Size] != null && _hashTable[(hash + i * i)] != deleteMarker)
                 {
                     j++;
                     if (j == Size) // table is full
@@ -57,15 +54,12 @@ namespace DVDLibrary
             }
             _hashTable[hash] = movie;
             _probes[hash] = i + 1;
-            Console.WriteLine($"Movie: {movie.Title} added to the system");
+            Console.WriteLine($"Movie: {movie.Title} added to the system with hash {hash}");
             return true;
         }
 
         public void AddDVD(string movieTitle, int inputNumberOfDVDs) //add dvd to current movie object
         {
-            // Prompt the user to enter a movie title and read the input
-
-
             // Search for the movie in the hashtable
             Movie movie = SearchMovie(movieTitle!);
 
@@ -103,10 +97,10 @@ namespace DVDLibrary
                         _hashTable[(hash + i * i) % Size].NumberOfDVDs -= numberOfRemove;
                         if (_hashTable[(hash + i * i) % Size].NumberOfDVDs <= 0)
                         {
-                            _hashTable[(hash + i * i) % Size] = null!;
+                            _hashTable[(hash + i * i) % Size] = deleteMarker!;
                             _probes[(hash + i * i) % Size] = 0;
                         }
-                        Console.WriteLine($"{numberOfRemove} DVDs removed from {title} sucessfully");
+                        Console.WriteLine($"{numberOfRemove} DVDs removed from {title} sucessfully, current available DVD: {movie.NumberOfDVDs}");
                         return true;
                     }
                     i++;
