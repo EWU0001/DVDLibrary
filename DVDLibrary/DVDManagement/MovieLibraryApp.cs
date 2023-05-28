@@ -67,11 +67,9 @@ namespace DVDLibrary
             if (StaffAuth())
             {
                 Console.WriteLine("\nYou are in Staff Menu");
-
                 int staffChoice;
                 do
                 {
-
                     Console.WriteLine("\n------------------------");
                     Console.WriteLine("1. Insert DVDs of a new movie to the system");
                     Console.WriteLine("2. Insert DVDs of an existing movie to the system");
@@ -81,7 +79,6 @@ namespace DVDLibrary
                     Console.WriteLine("6. Find a member's contact phone number, given the member's full name");
                     Console.WriteLine("7. Find all the members who are currently renting a particular movie");
                     Console.WriteLine("0. Return to main menu");
-
                     while (true)
                     {
                         Console.Write("Enter your choice ==> ");
@@ -107,7 +104,6 @@ namespace DVDLibrary
                                 // Console.WriteLine($"Added {movies.Count} movies to the system.");
                             }
                             break;
-
                         case 2:
                             Console.Clear();
                             Console.WriteLine("--------------------------");
@@ -207,11 +203,9 @@ namespace DVDLibrary
             if (memberCollection.CheckMemberAuth(inputFirstName!, inputLastName!, inputpin!))
             {
                 Console.WriteLine("\nWelcome to Member Menu");
-
                 int memberChoice;
                 do
                 {   //display Member menu options
-
                     Console.WriteLine("\n-------------------------");
                     Console.WriteLine("1. Browse all the movies");
                     Console.WriteLine("2. Display the information about a movie, given the title of the movie");
@@ -221,7 +215,6 @@ namespace DVDLibrary
                     Console.WriteLine("6. Display the top 3 movies most borrowed movies");
                     Console.WriteLine("0. Return to main menu");
                     Console.Write("\nEnter your choice ==> ");
-
                     while (!int.TryParse(Console.ReadLine(), out memberChoice) || (memberChoice != 0 && memberChoice != 1 && memberChoice != 2 && memberChoice != 3 && memberChoice != 4 && memberChoice != 5 && memberChoice != 6))
                     {
                         Console.WriteLine("Invalid input, please enter a valid integer.");
@@ -300,7 +293,6 @@ namespace DVDLibrary
                             break;
                     }
                 } while (memberChoice != 0);
-
                 Console.ReadKey();
             }
             else

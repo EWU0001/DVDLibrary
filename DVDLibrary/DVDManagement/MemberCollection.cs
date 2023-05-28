@@ -83,7 +83,6 @@ namespace DVDLibrary
             {
                 Console.WriteLine($"Member {member.FirstName} does not exist in the system");
             }
-
         }
         public string GetMemberNumber(Member member)
         {
@@ -169,10 +168,8 @@ namespace DVDLibrary
             {
                 if (foundMember.RemoveFromBorrow(movieTitle))
                 {
-
                     return true;
                 }
-
                 else
                 {
                     Console.WriteLine($"Movie {movieTitle} not found in the member's current borrowing.");
@@ -216,7 +213,6 @@ namespace DVDLibrary
                 Console.WriteLine("Please provide all member details");
                 return false;
             }
-
             Member memberToSearch = new(firstName, lastName, null, pin);
             Member? foundMember = Search(memberToSearch);
             if (foundMember != null && foundMember.Pin == pin)
@@ -224,7 +220,6 @@ namespace DVDLibrary
                 Console.WriteLine("Member details are matched");
                 return true;
             }
-
             Console.WriteLine("Check member details again");
             return false;
         }
