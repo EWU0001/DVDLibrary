@@ -142,7 +142,8 @@ namespace DVDLibrary
                                 Console.WriteLine("Invalid PIN length. PIN must be exactly 4 digits.");
                                 inputPin = Console.ReadLine();
                             }
-                            Member memberToAdd = new("aaa", "bbb", "0000000", $"{inputPin}");
+                            // Member memberToAdd = new("aaa", "bbb", "0000000", $"{inputPin}");
+                            Member memberToAdd = new($"{inputFirstName}", $"{inputLastName}", $"{inputPhoneNumber}", $"{inputPin}");
                             memberCollection.AddMember(memberToAdd);
                             break;
                         case 5:

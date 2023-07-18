@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ericw\\OneDrive\\Desktop\\n11254726\\DVDLibrary\\DVDManagement\\DVDLibrary.csproj": {}
+    "C:\\Users\\ericw\\Documents\\GitHub\\Algorithm\\DVDLibrary\\DVDManagement\\DVDLibrary.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ericw\\OneDrive\\Desktop\\n11254726\\DVDLibrary\\DVDManagement\\DVDLibrary.csproj": {
+    "C:\\Users\\ericw\\Documents\\GitHub\\Algorithm\\DVDLibrary\\DVDManagement\\DVDLibrary.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ericw\\OneDrive\\Desktop\\n11254726\\DVDLibrary\\DVDManagement\\DVDLibrary.csproj",
+        "projectUniqueName": "C:\\Users\\ericw\\Documents\\GitHub\\Algorithm\\DVDLibrary\\DVDManagement\\DVDLibrary.csproj",
         "projectName": "DVDLibrary",
-        "projectPath": "C:\\Users\\ericw\\OneDrive\\Desktop\\n11254726\\DVDLibrary\\DVDManagement\\DVDLibrary.csproj",
+        "projectPath": "C:\\Users\\ericw\\Documents\\GitHub\\Algorithm\\DVDLibrary\\DVDManagement\\DVDLibrary.csproj",
         "packagesPath": "C:\\Users\\ericw\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ericw\\OneDrive\\Desktop\\n11254726\\DVDLibrary\\DVDManagement\\obj\\",
+        "outputPath": "C:\\Users\\ericw\\Documents\\GitHub\\Algorithm\\DVDLibrary\\DVDManagement\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\ericw\\AppData\\Roaming\\NuGet\\NuGet.Config",
