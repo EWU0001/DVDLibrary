@@ -33,7 +33,6 @@ C:\Users\ericw\Documents\GitHub\Algorithm\DVDLibrary\DVDManagement\bin\Debug\net
 C:\Users\ericw\Documents\GitHub\Algorithm\DVDLibrary\DVDManagement\bin\Debug\net6.0\DVDLibrary.runtimeconfig.json
 C:\Users\ericw\Documents\GitHub\Algorithm\DVDLibrary\DVDManagement\bin\Debug\net6.0\DVDLibrary.dll
 C:\Users\ericw\Documents\GitHub\Algorithm\DVDLibrary\DVDManagement\bin\Debug\net6.0\DVDLibrary.pdb
-C:\Users\ericw\Documents\GitHub\Algorithm\DVDLibrary\DVDManagement\obj\Debug\net6.0\DVDLibrary.csproj.AssemblyReference.cache
 C:\Users\ericw\Documents\GitHub\Algorithm\DVDLibrary\DVDManagement\obj\Debug\net6.0\DVDLibrary.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\ericw\Documents\GitHub\Algorithm\DVDLibrary\DVDManagement\obj\Debug\net6.0\DVDLibrary.AssemblyInfoInputs.cache
 C:\Users\ericw\Documents\GitHub\Algorithm\DVDLibrary\DVDManagement\obj\Debug\net6.0\DVDLibrary.AssemblyInfo.cs

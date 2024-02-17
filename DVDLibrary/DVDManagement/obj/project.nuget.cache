@@ -1,8 +1,15 @@
 {
   "version": 2,
-  "dgSpecHash": "npGAYvqmz5g0/AUNumGMmObzaSKnlPQ1yoBjx5++r5Fg42BqzNySyQVR6KMAUOR1o+L2D6dOMoRDRQuq7E4OMg==",
+  "dgSpecHash": "KnGVinXM657vhuqZ3Azrl+osvRmIUV+akt6cUH5gPEFwpEVurq0E5v6c7C8Z0vvaWQAmqbjZ0dlW0lHAK1/BlQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\ericw\\Documents\\GitHub\\Algorithm\\DVDLibrary\\DVDManagement\\DVDLibrary.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\ericw\\.nuget\\packages\\dotliquid\\2.0.333\\dotliquid.2.0.333.nupkg.sha512",
+    "C:\\Users\\ericw\\.nuget\\packages\\liquidtestreports.core\\1.0.9\\liquidtestreports.core.1.0.9.nupkg.sha512",
+    "C:\\Users\\ericw\\.nuget\\packages\\liquidtestreports.markdown\\1.0.9\\liquidtestreports.markdown.1.0.9.nupkg.sha512",
+    "C:\\Users\\ericw\\.nuget\\packages\\microsoft.testplatform.objectmodel\\16.6.1\\microsoft.testplatform.objectmodel.16.6.1.nupkg.sha512",
+    "C:\\Users\\ericw\\.nuget\\packages\\nuget.frameworks\\5.0.0\\nuget.frameworks.5.0.0.nupkg.sha512",
+    "C:\\Users\\ericw\\.nuget\\packages\\system.valuetuple\\4.5.0\\system.valuetuple.4.5.0.nupkg.sha512"
+  ],
   "logs": []
 }
