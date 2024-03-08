@@ -1,0 +1,154 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\ericw\\Documents\\GitHub\\Algorithm\\DVDLibrary\\DVDLibraryTest\\DVDLibraryTest.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\ericw\\Documents\\GitHub\\Algorithm\\DVDLibrary\\DVDLibraryTest\\DVDLibraryTest.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\ericw\\Documents\\GitHub\\Algorithm\\DVDLibrary\\DVDLibraryTest\\DVDLibraryTest.csproj",
+        "projectName": "DVDLibraryTest",
+        "projectPath": "C:\\Users\\ericw\\Documents\\GitHub\\Algorithm\\DVDLibrary\\DVDLibraryTest\\DVDLibraryTest.csproj",
+        "packagesPath": "C:\\Users\\ericw\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\ericw\\Documents\\GitHub\\Algorithm\\DVDLibrary\\DVDLibraryTest\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\ericw\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "C:\\Users\\ericw\\Documents\\GitHub\\Algorithm\\DVDLibrary\\DVDManagement\\DVDLibrary.csproj": {
+                "projectPath": "C:\\Users\\ericw\\Documents\\GitHub\\Algorithm\\DVDLibrary\\DVDManagement\\DVDLibrary.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "LiquidTestReports.Markdown": {
+              "target": "Package",
+              "version": "[1.0.9, )"
+            },
+            "Microsoft.NET.Test.Sdk": {
+              "target": "Package",
+              "version": "[17.6.0, )"
+            },
+            "coverlet.collector": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[6.0.0, )"
+            },
+            "xunit": {
+              "target": "Package",
+              "version": "[2.4.2, )"
+            },
+            "xunit.runner.visualstudio": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.4.5, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.102/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\ericw\\Documents\\GitHub\\Algorithm\\DVDLibrary\\DVDManagement\\DVDLibrary.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\ericw\\Documents\\GitHub\\Algorithm\\DVDLibrary\\DVDManagement\\DVDLibrary.csproj",
+        "projectName": "DVDLibrary",
+        "projectPath": "C:\\Users\\ericw\\Documents\\GitHub\\Algorithm\\DVDLibrary\\DVDManagement\\DVDLibrary.csproj",
+        "packagesPath": "C:\\Users\\ericw\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\ericw\\Documents\\GitHub\\Algorithm\\DVDLibrary\\DVDManagement\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\ericw\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "LiquidTestReports.Markdown": {
+              "target": "Package",
+              "version": "[1.0.9, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.102\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

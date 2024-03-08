@@ -14,7 +14,7 @@ namespace DVDLibrary
             Console.WriteLine("=========================================================");
             MainMenu(); //initiate menu selection
         }
-        static void MainMenu()
+        public static void MainMenu()
         {
             Console.WriteLine("\nMain Menu");
             Console.WriteLine("-----------------");

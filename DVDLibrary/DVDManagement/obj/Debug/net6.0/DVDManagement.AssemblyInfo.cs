@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DVDManagement")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+05786c90292b90d19630a24c3f992e774d3dbd6c")]
 [assembly: System.Reflection.AssemblyProductAttribute("DVDManagement")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DVDManagement")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

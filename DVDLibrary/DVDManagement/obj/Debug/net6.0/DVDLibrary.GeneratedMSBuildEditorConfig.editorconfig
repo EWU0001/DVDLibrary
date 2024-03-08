@@ -9,3 +9,5 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = DVDLibrary
 build_property.ProjectDir = C:\Users\ericw\Documents\GitHub\Algorithm\DVDLibrary\DVDManagement\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
