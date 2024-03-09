@@ -1,43 +1,45 @@
 using DVDLibrary;
-using System.Text;
-using Xunit;
 
 namespace DVDLibraryTest
 {
     public class UnitTest1
     {
         [Fact]
-        public void MainMenu_ExitProgram()
+        public void MainMenu_StaffAuthentication_Successful()
         {
-            var input = new StringBuilder();
-            var output = new StringBuilder();
-            var expectedOutput = new StringBuilder();
+            // Arrange
+            var input = new StringReader("staff\ncraftbeer\n"); // Simulate successful authentication
+            var output = new StringWriter();
+            Console.SetIn(input);
+            Console.SetOut(output);
 
-            input.AppendLine("0"); // enter 0 to exit the program
-            expectedOutput.AppendLine("\nMain Menu");
-            expectedOutput.AppendLine("-----------------");
-            expectedOutput.AppendLine("\nSelect from the following:");
-            expectedOutput.AppendLine("1. Staff");
-            expectedOutput.AppendLine("2. Member");
-            expectedOutput.AppendLine("0. End the program");
-            expectedOutput.Append("\nEnter your choice ==> ");
-            expectedOutput.AppendLine("Exiting program...");
-            expectedOutput.AppendLine("!-----Good Bye-----!");
+            // Act
+            bool authenticated = MovieLibraryApp.StaffAuth();
 
-            using (var consoleInput = new StringReader(input.ToString())) 
-            {
-                using (var consoleOutput = new StringWriter(output))
-                {
-                    Console.SetIn(consoleInput); 
-                    Console.SetOut(consoleOutput);
+            // Assert
+            string actualOutput = output.ToString();
+            Assert.Contains("Log In successful!", actualOutput);
+            Assert.True(authenticated); // Ensure authentication was successful
+        }
 
-                    var MovieLibraryApp = new MovieLibraryApp();
-                    MovieLibraryApp.MainMenu();
+        [Fact]
+        public void MainMenu_StaffAuthentication_Unsuccessful()
+        {
+            // Arrange
+            var input = new StringReader("wrongusername\nwrongpassword\n0\n"); // Simulate unsuccessful authentication
+            var output = new StringWriter();
+            Console.SetIn(input);
+            Console.SetOut(output);
 
-                    Assert.Equal(expectedOutput.ToString(), output.ToString());
-                }
-            }
+            // Act
+            bool authenticated = MovieLibraryApp.StaffAuth();
 
+            // Assert
+            string actualOutput = output.ToString();
+            Assert.Contains("User name or password is incorrect. Input again or Enter '0' to cancel.", actualOutput.Trim());
+            Assert.Contains("Enter staff username >> ", actualOutput);
+            Assert.Contains("Enter password >> ", actualOutput);
+            Assert.False(authenticated); // Ensure authentication was unsuccessful
         }
     }
 }

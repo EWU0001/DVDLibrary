@@ -303,14 +303,14 @@ namespace DVDLibrary
             }
         }
 
-        static bool StaffAuth()
+        public static bool StaffAuth()
         {
             string defaultUserName = "staff"; //default staff username
-            string defaultPassword = "today123"; //default today123 password
-            Console.Write("Enter staff username >> ");
-            string? inputUserName = defaultUserName; //set it auto login for tesing purpose
-            Console.Write("Enter password >> ");
-            string? inputPassword = defaultPassword;
+            string defaultPassword = "craftbeer"; //default today123 password
+            Console.Write("Enter staff username 'staff' >> ");
+            string? inputUserName = Console.ReadLine(); //set it auto login for tesing purpose
+            Console.Write("Enter password 'craftbeer' >> ");
+            string? inputPassword  = Console.ReadLine();
             while (true)
             {
                 if (inputUserName == defaultUserName && inputPassword == defaultPassword)
